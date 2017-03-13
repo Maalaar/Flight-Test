@@ -9,8 +9,10 @@ def cog (W_f):
     from fuelmoment import fuelmoment
     StartFuelW = 4150. #pounds
     FuelW = StartFuelW - W_f #pounds
-    FuelM = 100*fuelmoment(W_f, StartFuelW) #inchpounds
-    
+    FuelM=[]
+    for i in range(len(W_f)):
+        FuelM.append = 100*fuelmoment(W_f[i], StartFuelW) #inchpounds
+    FuelM=np.array(FuelM)
     TotalW = CitationW + CrewW + FuelW #pounds
     g = 9.81
     lbstokg = 0.45359237
@@ -35,7 +37,10 @@ def cog2 (W_f):
     from fuelmoment import fuelmoment
     StartFuelW = 4150. #pounds
     FuelW = StartFuelW - W_f #pounds
-    FuelM = 100*fuelmoment(W_f, StartFuelW) #inchpounds
+    
+    for i in range(len(W_f)):
+        FuelM.append = 100*fuelmoment(W_f[i], StartFuelW) #inchpounds
+    FuelM=np.array(FuelM)
     
     TotalW = CitationW + CrewW + FuelW #pounds
     g = 9.81
