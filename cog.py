@@ -13,7 +13,7 @@ def cog (W_f):
     
     
     FuelM=[]
-    fuelW=[]
+    FuelW=[]
     for i in range(len(W_f)):
         FuelM.append ( 100*fuelmoment(W_f[i], StartFuelW)) #inchpounds
         FuelW.append( StartFuelW - W_f[i]) #pounds
