@@ -1,4 +1,6 @@
 #returns weight in Newton & x_cg in meters
+import numpy as np
+
 def cog (W_f):
     
     CitationW = 9165. #pounds
