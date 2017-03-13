@@ -11,26 +11,21 @@ index = np.array([23081,24211,25201,26501,28481,29701])
 h_p = np.array([19000.,19010.,18990.,19000.,18990.,18960.]) #ft
 FF_l = np.array([693.,637.,527.,438.,383.,367.]) #lbs/hr
 FF_r = np.array([756.,681.,548.,468.,394.,398.]) #lbs/hr
-TAT = np.array([-9.8,-11.2,-14.2,-16.5,-18.2,-19.5]) #deg C
-M = np.array([0.5188,0.4851,0.4303,0.3551,0.2933,0.2500]) 
+M = np.array([ 0.5156014 ,  0.48228907,  0.41898428,  0.35321723,  0.29534562, 0.24997917])
 gamma = 1.4
 lambda1 = -0.0065         # temperature gradient in ISA [K/m]
 Temp0  = 288.15          # temperature at sea level in ISA [K] 
 ft_to_m = 0.3048
 lbs_to_kg = 0.453592
-
+Temp = np.array([ 250.05484366,  250.30564387,  250.16675414,  250.40185229,
+        250.57845661,  250.51903388])
 
 TAT = TAT+273.15 #convert to Kelvin
 h_p = h_p*ft_to_m
 FF_l = FF_l*lbs_to_kg/3600.
 FF_r = FF_r*lbs_to_kg/3600.
 
-
-T_s = []
-for i in range(TAT.size):
-    Ts = TAT[i]/(1.+(((gamma-1.)/2)*M[i]*M[i]))
-    T_s.append(Ts)
-T_s = np.array(T_s)
+T_s = Temp
 
 T_IAS = []
 for i in range(h_p.size):
