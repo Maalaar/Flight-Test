@@ -25,21 +25,33 @@ W = weightstuff[0] #Newton
 m = W/g #kg
 xcg = weightstuff[1] #meters
 
-print W
-print xcg
-
 #forces
 CL = 2 * W / (rho * V ** 2 * S)   
 CD = CD0 + (CLa * alpha) ** 2 / (np.pi * A * e)
 CN = CL*np.cos(alpha) + CD*np.sin(alpha)
 CT = CD*np.cos(alpha) - CL*np.sin(alpha)
 
-#lecture 2 slide 17
+#lecture 2 slide 17 & 22
 Cmle = -CN*(e/c) 
-
-#lecture 2 slide 22
 Cmalphale = stats.linregress(alpha,Cmle)[0]
 CNalphale = stats.linregress(alpha,CN)[0]
 xle = 0.0254*261.56
 xac = xle - c*Cmalphale/CNalphale
 Cmac = -Cmle + CN*(xle-xac)/c
+
+#more forces, lecture 3 slide 13 & 15
+CTw = CT
+xh = lh + xac
+CNw = []
+CNh = []
+
+for j in range(1,len(xcg)):
+    CNa = np.array([[1              , Vh_V**2*Sh_S           ],\
+                    [(xcg[j]-xac)/c , Vh_V**2*Sh_S*(xcg[j]-xh)/c]])
+    CNb = np.array([CN,-Cmac])
+    CNw = np.linalg.solve(CNa,CNb)[0]
+    CNh = np.linalg.solve(CNa,CNb)[1]
+
+print CN
+print CNw
+print CNh
