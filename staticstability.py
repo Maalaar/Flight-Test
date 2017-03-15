@@ -8,7 +8,7 @@ Created on Mon Mar 13 09:58:52 2017
 #modules
 import numpy as np
 
-#imputs from measurements
+#imputs from drag polar measurements!
 W_f = np.array([741., 778., 805., 829., 872., 896.]) #lbs
 alpha = (np.pi/180.)*np.array([1.1, 1.5, 2.5, 4.5, 7.3, 10.8]) #rad
 V = 0.5144444*np.array([240, 224, 194, 163, 136, 115]) #m/s
@@ -39,7 +39,10 @@ xle = 0.0254*261.56
 xac = xle - c*Cmalphale/CNalphale
 Cmac = -Cmle + CN*(xle-xac)/c
 
-#more forces, lecture 3 slides 13 & 15
+#lecture 2 slide 30
+Cmanew = CNalphale*(xcg-xac)/c #juiste CMalpha hierzo! wel een matrix, verschillend voor elke fuel used input
+
+#introducing tail, lecture 3 slides 13 & 15
 CTw = CT
 xh = lh + xac
 CNw = []
