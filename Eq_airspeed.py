@@ -9,6 +9,7 @@ inputs:
 
 output:
 - V_e [m/s]
+- M [-] Mach number
 """
 from constants import *
 import numpy as np
