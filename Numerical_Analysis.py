@@ -44,14 +44,51 @@ C = np.matrix([[1, 0, 0, 0],
 D = np.matrix([[0], [0], [0], [0]])
 
 sys = cs.ss(A, B, C, D)
+H = cs.tf(sys)
 
 t = np.arange(0, 100, 0.1)
 
-X0 = np.matrix([[1], [0], [0], [0]])
+X0 = np.matrix([[3], [0], [0], [0]])
 
-y1, t = cs.initial(sys, t, X0)
+y, t = cs.initial(sys, t, X0)
+y1 = []
+y2=[]
+y3=[]
+y4=[]
+y1.append(y[:,0])
+y2.append(y[:,1])
+y3.append(y[:,2])
+y4.append(y[:,3])
+
+y1 = np.transpose(y1)
+y2 = np.transpose(y2)
+y3 = np.transpose(y3)
+y4 = np.transpose(y4)
+
+eig = np.linalg.eig(A)
+eigenvalue = eig[0]
+eigenvector = eig[1]
+
+xi = eigenvalue.real
+eta = eigenvalue.imag
+
+P = (2*np.pi)/eta * (c/V0)
 
 
+plt.subplot(221)
+plt.title('u')
 plt.plot(t, y1)
+
+plt.subplot(222)
+plt.title('alpha')
+plt.plot(t, y2)
+
+plt.subplot(223)
+plt.title('Theta')
+plt.plot(t, y3)
+
+plt.subplot(224)
+plt.title('q')
+plt.plot(t, y4)
 
 plt.show()
