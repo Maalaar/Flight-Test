@@ -38,7 +38,7 @@ def cog2 (W_f):
     CitationW = 9165. #pounds
     CitationM = 2677847.5 #inchpounds
     CrewW = 1558.67 #pounds
-    CrewM = 311186.89 #inchpounds
+    CrewM = 311186.89 #inchpounds #deze verschilt als Rens verplaatst, verder nieks
     
     from fuelmoment import fuelmoment
     StartFuelW = 4150. #pounds

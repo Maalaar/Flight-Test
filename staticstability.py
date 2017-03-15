@@ -31,7 +31,7 @@ CN = CL*np.cos(alpha) + CD*np.sin(alpha)
 CT = CD*np.cos(alpha) - CL*np.sin(alpha)
 
 #lecture 2 slides 17 & 22
-Cmle = -CN*(e/c) 
+Cmle = -CN*(e/c)
 from scipy import stats
 Cmalphale = stats.linregress(alpha,Cmle)[0]
 CNalphale = stats.linregress(alpha,CN)[0]
