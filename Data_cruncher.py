@@ -18,33 +18,29 @@ pitch_rate = np.genfromtxt('data/pitch_rate[degpers].txt', delimiter = '\n')
 #plt.show()
 
 time_phugoid = 3600.*1. + 60.*15. + 40.
+time_short = 3600.*1. + 60.*14. + 32.
 
 x = []
 y = []
 
-mt = 200
+mt_short = 6
+mt_phugoid = 200
 step = 0.1
 
-j = np.where(time==time_phugoid)
-j = j[0]
-j=j[0]
-
-x = np.arange(0, mt, step)
-y = pitch_angle[j:j+(mt/step)]
-
-#for i in time:
-#    if time_phugoid-5 <= time[i] <= time_phugoid + 5:
-#        j = np.arange(i,mt+i,step)
-#        while i <= i+mt:
-#            x.append(time[i])
-#            y.append(v_tas[i])
-#            i = i + step
-#        i = i + mt
-#    else:
-#        print 'noobie'
+phugoid_index = np.where(time==time_phugoid)[0][0]
+short_index = np.where(time==time_short)[0][0]
 
 
-plt.plot(x,y)
+
+x_phugoid = np.arange(0, mt_phugoid, step)
+y_phugoid = pitch_angle[phugoid_index:phugoid_index+(mt_phugoid/step)]
+
+x_short = np.arange(0, mt_short, step)
+y_short = pitch_rate[short_index:short_index+(mt_short/step)]
+
+
+
+plt.plot(x_short,y_short)
 plt.show()
 
 
