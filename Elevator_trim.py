@@ -6,6 +6,8 @@ Created on Mon Mar 13 10:02:52 2017
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import cog
+
 
 h_p     = np.array([18930.,17920.,17330.,16540.,17210.,17440.,17600.]) #ft
 V_IAS   = np.array([158.,170.,180.,188.,149.,140.,130.]) #kts
@@ -29,6 +31,7 @@ rho0    = 1.225
 W_s     = 60500. #N
 OEW     = 9165. #lbs
 m_fuel_0 = 4150. #lbs
+c       = 2.0569	          # mean aerodynamic cord [m]
 
 ft_to_m = 0.3048
 kts_to_ms = 0.514444
@@ -53,4 +56,11 @@ V_e     = V_t*np.sqrt(rho/rho0)
 m       = OEW + m_fuel_0 + m_pass.sum() - Fused
 W       = m*g
 V_e_red = V_e*np.sqrt(W_s/W)
+
+W1,cog1 = cog.cog([1140])
+W2,cog2 = cog.cog2([1174])
+
+dxcg    = cog2-cog1
+de1     = -0.9--0.4
+
 
