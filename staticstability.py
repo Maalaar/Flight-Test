@@ -39,9 +39,6 @@ xle = 0.0254*261.56
 xac = xle - c*Cmalphale/CNalphale
 Cmac = -Cmle + CN*(xle-xac)/c
 
-#lecture 2 slide 30
-Cmanew = CNalphale*(xcg-xac)/c #juiste CMalpha hierzo! wel een matrix, verschillend voor elke fuel used input
-
 #introducing tail, lecture 3 slides 13 & 15
 CTw = CT
 xh = lh + xac
