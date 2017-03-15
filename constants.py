@@ -31,6 +31,10 @@ global S
 S      = 30.00	          # wing area [m^2]
 global C_mTc
 C_mTc  = -0.0064            #dimensionless thrust moment arm [-]
+global b
+b      = 15.911
+global A
+A      = b ** 2 / S 
 
 global ft_to_m
 ft_to_m = 0.3048
