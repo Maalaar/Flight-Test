@@ -26,7 +26,7 @@ def equivalentspeed(h_p, TAT, V_IAS):
     rho     = p/(R*Temp)
     V_e     = V_t*np.sqrt(rho/rho0)
     
-    return V_e
+    return V_e, M
     
 
     

@@ -27,6 +27,10 @@ global m_fuel_0
 m_fuel_0 = 4150. #lbs
 global c
 c       = 2.0569	          # mean aerodynamic cord [m]
+global S
+S      = 30.00	          # wing area [m^2]
+global C_mTc
+C_mTc  = -0.0064            #dimensionless thrust moment arm [-]
 
 global ft_to_m
 ft_to_m = 0.3048
