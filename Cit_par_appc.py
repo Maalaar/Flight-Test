@@ -1,26 +1,27 @@
 import numpy as np
+
 # Citation 550 - Linear simulation
 
 # xcg = 0.25 * c
 
 # Stationary flight condition
 
-hp0    = 6000      	      # pressure altitude in the stationary flight condition [m]
-V0     = 150            # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0            # angle of attack in the stationary flight condition [rad]
-th0    = 0            # pitch angle in the stationary flight condition [rad]
+hp0    =  5486.4	    # pressure altitude in the stationary flight condition [m]
+V0     =  200           # true airspeed in the stationary flight condition [m/sec]
+alpha0 =  4.7           # angle of attack in the stationary flight condition [rad]
+th0    =  4.6           # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      =   2000          # mass [kg]
+m      =   60532.81018594/9.80665          # mass [kg]
 
 # aerodynamic properties
-e      =  0.87745470146438931  # Oswald factor [ ]
-CD0    =  0.025563672225735336 # Zero lift drag coefficient [ ]
-CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
+e      = 0.8            # Oswald factor [ ]
+CD0    = 0.04        # Zero lift drag coefficient [ ]
+CLa    = 5.084            # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    =  -0.31562082555776361 # longitudinal stabilty [ ]
-Cmde   =  -0.71816783630216641 # elevator effectiveness [ ]
+Cma    = -0.5625            # longitudinal stabilty [ ]
+Cmde   = -1.1642            # elevator effectiveness [ ]
 
 # Aircraft geometry
 
@@ -60,7 +61,7 @@ KY2    = 1.25 * 1.114
 
 # Aerodynamic constants
 
-Cmac   = 0                      # Moment coefficient about the aerodynamic centre [ ]
+Cmac   = 0.0297                      # Moment coefficient about the aerodynamic centre [ ]
 CNwa   = CLa                    # Wing normal force slope [ ]
 CNha   = 2 * np.pi * Ah / (Ah + 2) # Stabiliser normal force slope [ ]
 depsda = 4 / (A + 2)            # Downwash gradient [ ]
