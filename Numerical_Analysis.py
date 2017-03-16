@@ -8,6 +8,7 @@ import numpy as np
 import control.matlab as cs
 from Cit_par import *
 import matplotlib.pyplot as plt
+from Data_cruncher_vanmij import *
 
 
 #A = np.matrix([[1, 2], [2, 4]])
@@ -42,12 +43,25 @@ D = np.matrix([[0], [0], [0], [0]])
 sys = cs.ss(A, B, C, D)
 H = cs.tf(sys)
 
-t = np.arange(0, 1000, 0.1)
-Xinit = np.matrix([[V0], [alpha0], [th0], [0]])
-delev=np.full(len(t),5)
-y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit)
+mt = 200
+step = 0.1
+
+t = np.arange(0, mt, step)
+Xinit = np.matrix([[0], [0], [0], [0]])
+
+#delev = np.zeros(len(t))
+#impulsetime = 3/step
+#impulse = np.arange(0, impulsetime, step)
+#maxdelev = (10.*np.pi)/180.
+#
+#for i in impulse:
+#    delev[i] = (maxdelev/impulsetime)*t[i]
+
+delev = deltae *(np.pi/180)
 
 
+
+y, t, x = cs.lsim(sys, delev, t, Xinit)
 
 #plotting
 y1 = []
@@ -64,6 +78,15 @@ y2 = np.transpose(y2)
 y3 = np.transpose(y3)
 y4 = np.transpose(y4)
 
+y1 = y1 + V0
+y2 += alpha0
+y3 += th0
+
+y2 = y2*(180/np.pi)
+y3 = y3*(180/np.pi)
+y4 = y4*(180/np.pi)
+
+
 eig = np.linalg.eig(A)
 eigenvalue = eig[0]
 eigenvector = eig[1]
@@ -77,19 +100,24 @@ P = (2*np.pi)/eta * (c/V0)
 plt.subplot(221)
 plt.title('u')
 plt.plot(t, y1)
+plt.plot(t, v_tas)
 
 plt.subplot(222)
 plt.title('alpha')
 plt.plot(t, y2)
+plt.plot(t, AOA)
+
 
 plt.subplot(223)
 plt.title('Theta')
 plt.plot(t, y3)
+plt.plot(t, pitch)
 
 plt.subplot(224)
 plt.title('q')
 plt.plot(t, y4)
+plt.plot(t, rate)
 
 #plt.plot(t, y)
-
+#plt.plot(t, delev)
 plt.show()
