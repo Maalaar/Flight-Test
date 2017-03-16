@@ -146,31 +146,33 @@ Cmde = -CNde*(Vh_V**2)*Sh*lh/(S*c)
 ##### starting at page 188        #####
 #######################################
 
+#most of the derivatives were taken from figures with expirimental data of the Citation
+#why? because deriving them analytically takes a lot of time, and we only have 3 weeks
+#also, a lot of assumptions are made when calculating them analytically
+#which would result in a lot of errors anyway
+
 
 blist = (np.pi/180.)*np.array([-10., -7.75, -4.5, -2.25, 0, 2.25, 4.5, 7.75, 10.])
 CYlist = [0.08, 0.06, 0.04, 0.02, 0, -0.02, -0.04, -0.06, -0.08]
 CYb = stats.linregress(blist,CYlist)[0]
 #notes page 295
 #data taken from figure 8-6
-#calculating would take a year & would probably be more inaccurate
 
 
 CYbdot = 0
-#figure used above shows a line, so second derivative = 0
+#figure used above shows a linear relation, so first derivative constant, so second derivative = 0
 
 
 Cllist = [0.02, 0.15, 0.01, 0.005, 0, -0.005, -0.01, -0.015, -0.02]
 Clb = stats.linregress(blist,Cllist)[0]
 #notes page 204
 #data taken from figure 8-14
-#calculating would take a year & would probably be more inaccurate
 
 
 Cnlist = [-0.015, -0.012, -0.007, -0.004, 0, 0.004, 0.007, 0.012, 0.015]
 Cnb = stats.linregress(blist,Cnlist)[0]
 #notes page 212
 #data taken from figure 8-24
-#calculating would take a year & would probably be more inaccurate
 
 
 Cnbdot = 0
@@ -182,23 +184,25 @@ CYlist2 = [0.014, 0.011, 0.007, 0, -0.008, -0.012, -0.015]
 pb2Vlist = [-0.17, -0.12, -0.08, 0, 0.08, 0.12, 0.17]
 CYp = (2.*V/b)*stats.linregress(pb2Vlist,CYlist2)[0]
 #notes page 218
-#data taken from figure 2-28
-#calculating would take a year & would probably be more inaccurate
+#data taken from figure 8-28
 
 
 Cllist2 = [0.09, 0.065, 0.045, 0, -0.045, -0.07, -0.9]
 Clp = (2.*V/b)*stats.linregress(pb2Vlist,Cllist2)[0]
 #notes page 221
-#data taken from figure 2-32
-#calculating would take a year & would probably be more inaccurate
+#data taken from figure 8-32
 
 
 Cnlist2 = [2.2, 1.6, 1.1, 0, -1.1, -1.6, -2.2]
 Clp = (2.*V/b)*stats.linregress(pb2Vlist,Cnlist2)[0]
 #notes page 225
-#data taken from figure 2-35
-#calculating would take a year & would probably be more inaccurate
+#data taken from figure 8-35
 
+
+Cnlist2 = [2.2, 1.6, 1.1, 0, -1.1, -1.6, -2.2]
+Clp = (2.*V/b)*stats.linregress(pb2Vlist,Cnlist2)[0]
+#notes page 229
+#data taken from figure 8-35
 
 
 CYr    = +0.8495
