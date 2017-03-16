@@ -33,33 +33,36 @@ C3 = np.matrix([[CXde],
                 
 A = - np.linalg.inv(C1)*C2
 B = - np.linalg.inv(C1)*C3
-C = np.matrix([[1, 0, 0, 0]])
-D = np.matrix([[0]])
+C = np.matrix([[1, 0, 0, 0],
+               [0, 1, 0, 0],
+               [0, 0, 1, 0],
+               [0, 0, 0, 1]])
+D = np.matrix([[0], [0], [0], [0]])
 
 sys = cs.ss(A, B, C, D)
 H = cs.tf(sys)
 
-t = np.arange(0, 100, 0.1)
-
-X0 = np.matrix([[150], [0], [0], [0]])
-
-y, t = cs.step(sys, t, X0)
-
+t = np.arange(0, 1000, 0.1)
+Xinit = np.matrix([[V0], [alpha0], [th0], [0]])
+delev=np.full(len(t),5)
+y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit)
 
 
-#y1 = []
-#y2=[]
-#y3=[]
-#y4=[]
-#y1.append(y[:,0])
-#y2.append(y[:,1])
-#y3.append(y[:,2])
-#y4.append(y[:,3])
-#
-#y1 = np.transpose(y1)
-#y2 = np.transpose(y2)
-#y3 = np.transpose(y3)
-#y4 = np.transpose(y4)
+
+#plotting
+y1 = []
+y2=[]
+y3=[]
+y4=[]
+y1.append(y[:,0])
+y2.append(y[:,1])
+y3.append(y[:,2])
+y4.append(y[:,3])
+
+y1 = np.transpose(y1)
+y2 = np.transpose(y2)
+y3 = np.transpose(y3)
+y4 = np.transpose(y4)
 
 eig = np.linalg.eig(A)
 eigenvalue = eig[0]
@@ -71,22 +74,22 @@ eta = eigenvalue.imag
 P = (2*np.pi)/eta * (c/V0)
 
 
-#plt.subplot(221)
-#plt.title('u')
-#plt.plot(t, y1)
-#
-#plt.subplot(222)
-#plt.title('alpha')
-#plt.plot(t, y2)
-#
-#plt.subplot(223)
-#plt.title('Theta')
-#plt.plot(t, y3)
-#
-#plt.subplot(224)
-#plt.title('q')
-#plt.plot(t, y4)
+plt.subplot(221)
+plt.title('u')
+plt.plot(t, y1)
 
-plt.plot(t, y)
+plt.subplot(222)
+plt.title('alpha')
+plt.plot(t, y2)
+
+plt.subplot(223)
+plt.title('Theta')
+plt.plot(t, y3)
+
+plt.subplot(224)
+plt.title('q')
+plt.plot(t, y4)
+
+#plt.plot(t, y)
 
 plt.show()
