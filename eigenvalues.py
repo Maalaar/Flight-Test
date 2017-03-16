@@ -141,28 +141,4 @@ print "Half time",T5,"s"
 print "Frequency",omega5,"rad/s"
 print "Damping",damping5
 
-Amp1=2.4
-damp1=np.log(2)/81.
 
-omega1=0.1957
-phaseang1=0.
-
-
-Amp2=2.4
-damp2=np.log(2)/0.6
-omega2=1.6153
-phaseang2=0.
-
-V0=59.9
-
-t1=np.linspace(0,150,500)
-t2=np.linspace(0,10,500)
-z1=Amp1*np.e**(-damp1*t1)*np.cos(omega1*t1+phaseang1)+V0-Amp1
-z2=Amp2*np.e**(-damp2*t2)*np.cos(omega2*t2+phaseang2)+V0-Amp2
-
-
-
-
-
-plt.plot(t2,z2)
-plt.show()
