@@ -51,6 +51,14 @@ for j in range(1,len(xcg)):
     CNw = np.linalg.solve(CNa,CNb)[0]
     CNh = np.linalg.solve(CNa,CNb)[1]
 
+#CM-alpha
+from scipy import stats
+CNwa   = stats.linregress(alpha,CNw)[0]
+CNha   = stats.linregress(alpha,CNh)[0]
+CNa    = stats.linregress(alpha,CN)[0]
+deda   = 0 #downwash??????
+CMa    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c) #notes page 173, downwash????
+
 #print CN
 #print CNw
 #print CNh
