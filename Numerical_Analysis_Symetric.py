@@ -10,7 +10,7 @@ from Cit_par import *
 import matplotlib.pyplot as plt
 
 # Assigning coefficients to matrices
-C1 = np.matrix([[-2*muc*(c/V0**2), 0, 0, 0],
+C1 = np.matrix([[-2*muc*(c/(V0**2)), 0, 0, 0],
                 [0, (CZadot-2*muc)*(c/V0), 0, 0],
                 [0, 0, -(c/V0), 0],
                 [0, Cmadot*(c/V0), 0, -2*muc*KY2*(c/V0)**2]])
@@ -37,15 +37,15 @@ D = np.matrix([[0], [0], [0], [0]])
 sys = cs.ss(A, B, C, D)
 
 
-t = np.arange(0, 1000, 0.1) #time step and range 
-Xinit = np.matrix([[V0], [alpha0], [th0], [0]]) # initial values for control system
-delev=np.full(len(t),0) # elevator deflection angle
+t = np.arange(0, 300, 0.1) #time step and range 
+Xinit = np.matrix([[0], [alpha0], [th0], [0]]) # initial values for control system
+delev=1 # elevator deflection angle
 y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
 
 
 #plotting
-y1 = []
+y1=[]
 y2=[]
 y3=[]
 y4=[]
@@ -59,14 +59,14 @@ y2 = np.transpose(y2)
 y3 = np.transpose(y3)
 y4 = np.transpose(y4)
 
-eig = np.linalg.eig(A)
-eigenvalue = eig[0]
-eigenvector = eig[1]
-
-xi = eigenvalue.real
-eta = eigenvalue.imag
-
-P = (2*np.pi)/eta * (c/V0)
+#eig = np.linalg.eig(A)
+#eigenvalue = eig[0]
+#eigenvector = eig[1]
+#
+#xi = eigenvalue.real
+#eta = eigenvalue.imag
+#
+#P = (2*np.pi)/eta * (c/V0)
 
 
 plt.subplot(221)

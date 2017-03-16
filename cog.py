@@ -61,3 +61,4 @@ def cog2 (W_f):
     x_cg = x_cginch * inchtometers
     
     return (W, x_cg)
+

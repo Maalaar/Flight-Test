@@ -1,7 +1,7 @@
 
 from sympy import *
 from Cit_par import *
-
+import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
 def eigenvaluessym(Cxu,muc,Cxalpha,Cz0,Czu,Czalpha,Czalphadot,Cx0,Czq,Cmu,Cmalpha,Cmalphadot,Cmq,Ky2):
@@ -105,11 +105,11 @@ lambda6=Eigen2[1]
 lambda7=Eigen2[2]
 lambda8=Eigen2[3]
 
-T3=abs(np.log(0.5)*c/V/re(lambda5))
-T4=abs(np.log(0.5)*c/V/re(lambda6))
+T3=abs(np.log(0.5)*b/V/re(lambda5))
+T4=abs(np.log(0.5)*b/V/re(lambda6))
 
-T5=abs(np.log(0.5)*c/V/re(lambda7))
-P5=abs(2*np.pi*c/im(lambda7)/V)
+T5=abs(np.log(0.5)*b/V/re(lambda7))
+P5=abs(2*np.pi*b/im(lambda7)/V)
 omega5=2*np.pi/P5
 damping5=abs(re(lambda7)/((re(lambda7)**2+im(lambda7)**2))**0.5)
 
@@ -141,4 +141,4 @@ print "Half time",T5,"s"
 print "Frequency",omega5,"rad/s"
 print "Damping",damping5
 
-#print eigenvaluesasym(-0.9896,0,15.5,1.136,-0.0870,0.43,-0.0772,-0.3444,0.012,0.28,0.002,0.1638,0,-0.0108,-0.193,0.037)
+
