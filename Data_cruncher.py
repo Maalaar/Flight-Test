@@ -33,14 +33,14 @@ short_index = np.where(time==time_short)[0][0]
 
 
 x_phugoid = np.arange(0, mt_phugoid, step)
-y_phugoid = pitch_angle[phugoid_index:phugoid_index+(mt_phugoid/step)]
+y_phugoid = pitch_angle[phugoid_index:phugoid_index+(mt_phugoid/step)]-pitch_angle[phugoid_index]
 
 x_short = np.arange(0, mt_short, step)
 y_short = pitch_angle[short_index:short_index+(mt_short/step)]
 
 
 plt.close()
-plt.plot(x_phugoid,y_phugoid)
+plt.plot(x_short,y_short)
 plt.show()
 
 
