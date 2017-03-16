@@ -37,7 +37,7 @@ D = np.matrix([[0], [0], [0], [0]])
 sys = cs.ss(A, B, C, D)
 
 
-t = np.arange(0, 1000, 0.1) #time step and range 
+t = np.arange(0, 300, 0.1) #time step and range 
 Xinit = np.matrix([[0], [alpha0], [th0], [0]]) # initial values for control system
 delev=1 # elevator deflection angle
 y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
@@ -45,7 +45,7 @@ y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
 
 #plotting
-y1 = []
+y1=[]
 y2=[]
 y3=[]
 y4=[]
