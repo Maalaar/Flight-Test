@@ -13,6 +13,10 @@ time = np.genfromtxt('data/time[sec].txt', delimiter = ',')
 v_tas = np.genfromtxt('data/V_tas[ms].txt', delimiter = '\n')
 pitch_angle = np.genfromtxt('data/pitch_angle_[deg].txt', delimiter = '\n')
 pitch_rate = np.genfromtxt('data/pitch_rate[degpers].txt', delimiter = '\n')
+Wfl = np.genfromtxt('data/F_used_l[lbs].txt', delimiter = '\n')
+Wfr = np.genfromtxt('data/F_used_r[lbs].txt', delimiter = '\n')
+
+Wf = Wfl + Wfr
 
 #plt.plot(time, v_tas)
 #plt.show()
@@ -33,14 +37,14 @@ short_index = np.where(time==time_short)[0][0]
 
 
 x_phugoid = np.arange(0, mt_phugoid, step)
-y_phugoid = pitch_angle[phugoid_index:phugoid_index+(mt_phugoid/step)]-pitch_angle[phugoid_index]
+y_phugoid = v_tas[phugoid_index:phugoid_index+(mt_phugoid/step)]
 
 x_short = np.arange(0, mt_short, step)
 y_short = pitch_angle[short_index:short_index+(mt_short/step)]
 
 
 plt.close()
-plt.plot(x_short,y_short)
+plt.plot(x_phugoid,y_phugoid)
 plt.show()
 
 
