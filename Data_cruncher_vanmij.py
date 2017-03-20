@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 time = np.genfromtxt('data/time[sec].txt', delimiter = ',')
-v_tas = np.genfromtxt('data/V_tas[ms].txt', delimiter = '\n') #kts
+v_tas = np.genfromtxt('data/V_tas[kts].txt', delimiter = '\n') #kts
 pitch_angle = np.genfromtxt('data/pitch_angle_[deg].txt', delimiter = '\n') #deg
 pitch_rate = np.genfromtxt('data/pitch_rate[degpers].txt', delimiter = '\n') #deg/s
 Wfl = np.genfromtxt('data/F_used_l[lbs].txt', delimiter = '\n') #lbs

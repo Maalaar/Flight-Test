@@ -116,29 +116,39 @@ damping5=abs(re(lambda7)/((re(lambda7)**2+im(lambda7)**2))**0.5)
 print "SYMMETRIC"
 print " "
 print "Short Period"
-print "Period",P1,"s"
-print "Half time",T1,"s"
-print "Frequency",omega1,"rad/s"
-print "Damping",damping1
+print "Period            ",round(P1,2),"  s"
+print "Half time         ",round(T1,2),"  s"
+print "Frequency         ",round(omega1,2),"  rad/s"
+print "Damping           ",round(damping1,2)
 print " "
 print "Fugoid"
-print "Period",P2,"s"
-print "Half time",T2,"s"
-print "Frequency",omega2,"rad/s"
-print "Damping",damping2
+print "Period            ",round(P2,2),"  s"
+print "Half time         ",round(T2,2)," s"
+print "Frequency         ",round(omega2,2),"   rad/s"
+print "Damping           ",round(damping2,2)
 print " "
 print "ASYMMETRIC"
 print " "
 print "First Aperiodic"
-print "Half time",T3,"s"
+print "Half time         ",round(T3,2),"  s"
 print " "
 print "Second Aperiodic"
-print "Half time",T4,"s"
+print "Half time         ",round(T4,2),"s"
 print " "
-print "Periodic"
-print "Period",P5,"s"
-print "Half time",T5,"s"
-print "Frequency",omega5,"rad/s"
-print "Damping",damping5
+print "Periodic          "
+print "Period            ",round(P5,2),"  s"
+print "Half time         ",round(T5,2),"   s"
+print "Frequency         ",round(omega5,2),"  rad/s"
+print "Damping           ",round(damping5,2)
+print " "
+print " "
+print "EIGENVALUES"
+print "Short:            ",round(re(lambda1),4),"+-",round(im(lambda1),4)
+print "Fugoid:           ",round(re(lambda3),4),"+-",round(im(lambda3),4)
+print " "
+print "First Aperiodic:  ",round(lambda5,4)
+print "Second Aperiodic: ",round(lambda6,4)
+print "Periodic:         ",round(re(lambda7),4),"+-",round(im(lambda7),4)
+
 
 
