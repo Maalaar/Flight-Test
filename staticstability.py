@@ -21,7 +21,6 @@ from Cit_par import *
 from cog import *
 weightstuff = cog(W_f)
 W = weightstuff[0] #Newton
-m = W/g #kg
 xcg = weightstuff[1] #meters
 
 #forces
@@ -51,14 +50,45 @@ for j in range(1,len(xcg)):
     CNw = np.linalg.solve(CNa,CNb)[0]
     CNh = np.linalg.solve(CNa,CNb)[1]
 
-#CM-alpha
+#some derivatives
 from scipy import stats
 CNwa   = stats.linregress(alpha,CNw)[0]
 CNha   = stats.linregress(alpha,CNh)[0]
 CNa    = stats.linregress(alpha,CN)[0]
-deda   = 0 #downwash??????
-CMa    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c) #notes page 173, downwash????
 
-#print CN
-#print CNw
-#print CNh
+#elevator stuff
+#using the second measurement series instead of the first
+#and a lot of the same stuff as done above, repeated
+W_f2 = np.array([956., 1000., 1020., 1037., 1063., 1081., 1105.]) #lbs
+V2 = 0.5144444*np.array([158., 170., 180., 188., 149., 140., 130.])
+alpha2 = (np.pi/180.)*np.array([4.8, 4., 3.3, 2.8, 5.7, 6.6, 7.9])
+de = (np.pi/180.)*np.array([-0.4, 0., 0.3, 0.5, -0.8, -1.2, -1.7]) #rad
+
+weightstuff2 = cog(W_f2)
+W2 = weightstuff2[0] #Newton
+xcg2 = weightstuff2[1] #meters
+
+CL2 = 2 * W2 / (rho * V2 ** 2 * S)   
+CD2 = CD0 + (CLa * alpha2) ** 2 / (np.pi * A * e)
+CN2 = CL2*np.cos(alpha2) + CD2*np.sin(alpha2)
+CT2 = CD2*np.cos(alpha2) - CL2*np.sin(alpha2)
+
+Cmle2 = -CN2*(e/c)
+from scipy import stats
+Cmalphale2 = stats.linregress(alpha2,Cmle2)[0]
+CNalphale2 = stats.linregress(alpha2,CN2)[0]
+xac2 = xle - c*Cmalphale2/CNalphale2
+Cmac2 = -Cmle2 + CN2*(xle-xac2)/c
+
+CTw2 = CT2
+CNw2 = []
+CNh2 = []
+for j in range(1,len(xcg2)):
+    CNa2 = np.array([[1               , Vh_V**2*Sh_S               ],\
+                    [(xcg2[j]-xac2)/c , Vh_V**2*Sh_S*(xcg2[j]-xh)/c]])
+    CNb2 = np.array([CN2,-Cmac2])
+    CNw2 = np.linalg.solve(CNa2,CNb2)[0]
+    CNh2 = np.linalg.solve(CNa2,CNb2)[1]
+
+CNhde = stats.linregress(de,CNh2)[0]
+CNde  = stats.linregress(de,CN2)[0]
