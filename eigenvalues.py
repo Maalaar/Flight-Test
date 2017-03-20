@@ -1,6 +1,7 @@
 
 from sympy import *
 from Cit_par import *
+#from Cit_par import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
@@ -143,12 +144,12 @@ print "Damping           ",round(damping5,2)
 print " "
 print " "
 print "EIGENVALUES"
-print "Short:            ",round(re(lambda1),4),"+-",round(im(lambda1),4)
-print "Fugoid:           ",round(re(lambda3),4),"+-",round(im(lambda3),4)
+print "Short:            ",round(re(lambda1),4),"±",abs(round(im(lambda1),4)),"j"
+print "Fugoid:           ",round(re(lambda3),4),"±",abs(round(im(lambda3),4)),"j"
 print " "
-print "First Aperiodic:  ",round(lambda5,4)
-print "Second Aperiodic: ",round(lambda6,4)
-print "Periodic:         ",round(re(lambda7),4),"+-",round(im(lambda7),4)
+print "First Aperiodic:  ",round(re(lambda5),4),"±",abs(round(im(lambda5),4)),"j"
+print "Second Aperiodic: ",round(re(lambda6),4),"±",abs(round(im(lambda6),4)),"j"
+print "Periodic:         ",round(re(lambda7),4),"±",abs(round(im(lambda7),4)),"j"
 
 
 
