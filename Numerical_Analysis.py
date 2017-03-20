@@ -49,13 +49,6 @@ step = 0.1
 t = np.arange(0, mt, step)
 Xinit = np.matrix([[0], [0], [0], [0]])
 
-#delev = np.zeros(len(t))
-#impulsetime = 3/step
-#impulse = np.arange(0, impulsetime, step)
-#maxdelev = (10.*np.pi)/180.
-#
-#for i in impulse:
-#    delev[i] = (maxdelev/impulsetime)*t[i]
 
 delev = deltae *(np.pi/180)
 
@@ -86,17 +79,7 @@ y2 = y2*(180/np.pi)
 y3 = y3*(180/np.pi)
 y4 = y4*(180/np.pi)
 
-
-eig = np.linalg.eig(A)
-eigenvalue = eig[0]
-eigenvector = eig[1]
-
-xi = eigenvalue.real
-eta = eigenvalue.imag
-
-P = (2*np.pi)/eta * (c/V0)
-
-
+#plotting the total grpahs
 plt.subplot(221)
 plt.title('u')
 plt.plot(t, y1)
