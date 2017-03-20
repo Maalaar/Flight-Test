@@ -119,7 +119,7 @@ def constants(Wf, V, a, rho, gamma0):
     
    
     CXu = -2*CD
-    print CXu
+    #print CXu
     CZu = -2*CL
     Cmu = 0
     #notes page 168 & 187
@@ -311,7 +311,7 @@ def constants(Wf, V, a, rho, gamma0):
     #notes page 240
     #assuming xv-xcg = xh-xcg
     
-    #return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
-           # CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+    return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
+            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
             
-constants(Wf, V, a, rho, gamma0)
+CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr = constants(Wf, V, a, rho, gamma0)

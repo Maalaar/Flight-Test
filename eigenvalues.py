@@ -1,14 +1,14 @@
 import numpy as np
 from sympy import *
-#from Cit_par import *
-from alltheconstantsjohan import *
+from Cit_par import *
+#from alltheconstantsjohan import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
 
 
 
-
+#print CXu
 
 
 def eigenvaluessym(Cxu,muc,Cxalpha,Cz0,Czu,Czalpha,Czalphadot,Cx0,Czq,Cmu,Cmalpha,Cmalphadot,Cmq,Ky2):
