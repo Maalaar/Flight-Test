@@ -5,29 +5,69 @@ Created on Wed Mar 15 11:53:33 2017
 @author: rensv
 """
 
-
+#imports
+import numpy as np
+from cog import *
+from Cit_par import *
+from scipy import stats
 
 #inputs #this example: third drag polar measurement
-import numpy as np
 Wf     = [805.]
 V      = 194.
 a      = 2.5*np.pi/180.
 gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
 rho    = 0.675127 #19000ft
 
-#this function returns [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
-#                       CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+### INPUTS:
+#Wf = Fuel used in lbs
+#V = airspeed in m/s
+#a = angle of attack in rad
+#rho = density in kg/m3
+#gamma0 = flight path angle (=0 when flying straight forward aka altitude does not change during experiment)
 
-def derivatives(Wf, V, a, rho, gamma0):
-    
-    #imports
-    import numpy as np
-    from cog import *
-    from Cit_par import *
-    from scipy import stats
+### OUTPUTS:
+#this function returns a matrix with:
+#index - variable
+#0  - CX0
+#1  - CZ0
+#2  - Cm0
+#3  - CXu
+#4  - CZu
+#5  - Cmu
+#6  - CXa
+#7  - CZa
+#8  - Cma
+#9  - CXq
+#10 - CZq
+#11 - Cmq
+#12 - CZadot
+#13 - Cmadot
+#14 - CXde
+#15 - CZde
+#16 - Cmde
+#17 - CYb
+#18 - CYbdot
+#19 - Clb
+#20 - Cnb
+#21 - Cnbdot
+#22 - CYp
+#23 - Clp
+#24 - Cnp
+#25 - CYr
+#26 - Clr
+#27 - Cnr
+#28 - CYda
+#29 - Clda
+#30 - Cnda
+#31 - CYdr
+#32 - Cldr
+#33 - Cndr
+
+def constants(Wf, V, a, rho, gamma0):
     
     #basic forces
     W = float(cog(Wf)[0])
+    m = W/g
     xcg = float(cog(Wf)[1])
     
     CL = W/(0.5 * rho * V**2 * S)
@@ -65,7 +105,9 @@ def derivatives(Wf, V, a, rho, gamma0):
     #which should be true because we don't gain altitude during this part of the flight test
     
     
-    CZ0 = CL*np.sin(gamma0) 
+    CZ0 = CL*np.cos(gamma0) 
+    print CZ0
+    print CL
     #notes page 163
     #this is equal to CL if the flight path angle is 0 at 0 AoA
     #which should be true because we don't gain altitude during this part of the flight test
@@ -78,7 +120,7 @@ def derivatives(Wf, V, a, rho, gamma0):
     
     CXu = -2*CD
     CZu = -2*CL
-    CMu = 0
+    Cmu = 0
     #notes page 168 & 187
     #assumptions: 
     #   flight path angle 0 
@@ -94,14 +136,14 @@ def derivatives(Wf, V, a, rho, gamma0):
     #pretty straightforward
     
     
+    from staticstability import CNwa, CNha
     CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
     #notes page 170
     #can be simplified to: CZa = -CLa - CD
     #but this version is more complete, including the tail
     
     
-    from staticstability import CNwa, CNha
-    CMa    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c)
+    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c)
     #notes page 173
     #using data from drag polar measurements during flight test
     
@@ -201,7 +243,7 @@ def derivatives(Wf, V, a, rho, gamma0):
     #data taken from figure 8-32
     
     
-    Cnlist2 = [2.2, 1.6, 1.1, 0, -1.1, -1.6, -2.2]
+    Cnlist2 = (10**-3)*np.array([2.2, 1.6, 1.1, 0, -1.1, -1.6, -2.2])
     Cnp = (2.*V/b)*stats.linregress(pb2Vlist,Cnlist2)[0]
     #notes page 225
     #data taken from figure 8-35
@@ -248,30 +290,27 @@ def derivatives(Wf, V, a, rho, gamma0):
     #only source to determine this [74] is in the UB and currently lend out
     
     
-    CYdr = +0.2300 #<--- FROM APPENDIX C
+    CYdr = +0.2300
     #notes page 239
-    #probably leaving this as it is, hard to determine required variable CYvd, because:
-    #   just like the ailerons, we don't know shit about rudders
-    #   we have no experimental data on rudders
-    #   sources are vague
-    #not spending my time on this
-    #actual calculation according to notes shown below:
+    #keeping this the same as well because:
+    #   Sources are vague
+    #   Just like ailerons, we don't know shit about the rudder (dimensions, behavior)
+    #   Many assumptions need to be made
+    #   We only have three weeks, I don't have the time to do a literature study on rudders
     
-    #CYvd = 1 #<--- PLACEHOLDER
-    #Vv_V = Vh_V #assumption, seems reasonable
-    #Sv_S = Sh_S #<--- EDUCATED GUESS, total surface seems about equal of hor. and ver. tails
-    #CYdr = CYvd*(Vv_V**2)*(Sv_S)
-    
-    
+
     zcg = 1.6 #<--- EDUCATED GUESS, center of fuselage is about 1.5m, engines & tail slightly above, wings & fuel slightly below
     zv = 3. #<--- EDUCATED GUESS, total heigth citation 4.57m, tail starts at about 1.5m heigth
     Cldr = CYdr*(zv-zcg)/b
     #notes page 240
     
     
+    xh = xcg + lh
     Cndr = -CYdr*(xh-xcg)/b
     #notes page 240
     #assuming xv-xcg = xh-xcg
     
     return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
             CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+            
+answer = constants(Wf, V, a, rho, gamma0)
