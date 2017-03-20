@@ -1,9 +1,15 @@
-
+import numpy as np
 from sympy import *
 from Cit_par import *
-#from Cit_par import *
+#from alltheconstantsjohan import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
+
+
+
+
+#print CXu
+
 
 def eigenvaluessym(Cxu,muc,Cxalpha,Cz0,Czu,Czalpha,Czalphadot,Cx0,Czq,Cmu,Cmalpha,Cmalphadot,Cmq,Ky2):
     
@@ -71,7 +77,7 @@ Eigen2=eigenvaluesasym(CYb,CYbdot,mub,CL,CYp,CYr,Clb,Clp,KX2,Clr,KXZ,Cnb,Cnbdot,
 
 
 
-V=120 ######################################################
+V=120. ######################################################
 
 
 
@@ -82,6 +88,8 @@ lambda1=Eigen1[0]
 lambda2=Eigen1[1]
 lambda3=Eigen1[2]
 lambda4=Eigen1[3]
+
+
 
 
 
