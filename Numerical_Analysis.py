@@ -101,6 +101,4 @@ plt.title('q')
 plt.plot(t, y4)
 plt.plot(t, rate)
 
-#plt.plot(t, y)
-#plt.plot(t, delev)
 plt.show()

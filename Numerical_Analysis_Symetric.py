@@ -14,7 +14,7 @@ from Data_cruncher_vanmij import *
 C1 = np.matrix([[-2*muc*(c/(V0**2)), 0, 0, 0],
                 [0, (CZadot-2*muc)*(c/V0), 0, 0],
                 [0, 0, -(c/V0), 0],
-                [0, Cmadot*(c/V0), 0, -2*muc*KY2*(c/V0)**2]])
+                [0, Cmadot*(c/V0), 0, -2*muc*KY2*((c/V0)**2)]])
 
 C2 = np.matrix([[CXu/V0, CXa, CZ0, 0],
                 [CZu/V0, CZa, -CX0, (CZq + 2*muc)*(c/V0)],
@@ -40,9 +40,32 @@ sys = cs.ss(A, B, C, D)
 #input of control system
 delev = deltae *(np.pi/180) #input of elevator deflection
 t = np.linspace(0,len(delev)*0.1, num=len(delev), endpoint=True, retstep=False) #time step and range 
-Xinit = np.matrix([[0], [alpha0], [th0], [0]]) # initial values for control system
+Xinit = np.matrix([[0], [0  ], [0], [0]]) # initial values for control system
 y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
+
+#plotting
+y1 = []
+y2=[]
+y3=[]
+y4=[]
+y1.append(y[:,0])
+y2.append(y[:,1])
+y3.append(y[:,2])
+y4.append(y[:,3])
+
+y1 = np.transpose(y1)
+y2 = np.transpose(y2)
+y3 = np.transpose(y3)
+y4 = np.transpose(y4)
+
+y1 = y1 + V0
+y2 += alpha0
+y3 += th0
+
+y2 = y2*(180/np.pi)
+y3 = y3*(180/np.pi)
+y4 = y4*(180/np.pi)
 
 #plotting the total grpahs
 plt.subplot(221)
