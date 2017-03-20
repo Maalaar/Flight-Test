@@ -77,7 +77,7 @@ Eigen2=eigenvaluesasym(CYb,CYbdot,mub,CL,CYp,CYr,Clb,Clp,KX2,Clr,KXZ,Cnb,Cnbdot,
 
 
 
-V=120 ######################################################
+V=120. ######################################################
 
 
 
@@ -88,6 +88,8 @@ lambda1=Eigen1[0]
 lambda2=Eigen1[1]
 lambda3=Eigen1[2]
 lambda4=Eigen1[3]
+
+
 
 
 
