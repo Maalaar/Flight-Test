@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Eq_airspeed import *
-from alltheconstans import *
+from alltheconstants import *
 
 #importing all measured data from text files into numpy arrays
 time        = np.genfromtxt('data/time[sec].txt', delimiter = ',')              #sec
@@ -34,9 +34,10 @@ class Motion:
         self.deltae     =       deltae[self.index:self.index+(mt/step)]
         self.height     =       h_p[self.index:self.index+(mt/step)]
         self.TAT        =       TAT[self.index:self.index+(mt/step)]
-        self.IAS        =       v_ias[self.index:self.index+(mt/step)]
+        self.IAS.kts    =       v_ias[self.index:self.index+(mt/step)]
+        self.IAS        =       self.IAS.kts*kts_to_ms
         self.AoA        =       AoA[self.index:self.index+(mt/step)]
-        self.EAS        =       equivalentspeed(self.height, self.TAT, self.IAS)
+        self.EAS        =       equivalentspeed(self.height, self.TAT, self.IAS.kts)
         self.TAS        =       Truespeed(self.height, self.TAT, self.IAS)
         self.time       =       time
         self.mt         =       mt

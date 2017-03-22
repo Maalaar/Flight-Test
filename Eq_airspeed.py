@@ -21,7 +21,6 @@ def equivalentspeed(h_p, TAT, V_IAS):
     p       =   p0*(1.+(lambda1*h_p/Temp0))**(-g/(lambda1*R))
     M       =   np.sqrt((2./(gamma-1.))*((((p0/p)*(((1.+(((gamma-1.)*rho0*V_IAS**2.)/(2*gamma*p0)))**(gamma/(gamma-1.)))-1.))+1.)**((gamma-1.)/gamma) -1.))
     Temp    =   TAT/(1.+(((gamma-1.)/2)*M**2.))
-    a_mach  =   np.sqrt(gamma*R*Temp)
     rho     =   p/(R*Temp)
     V_e     =   V_t*np.sqrt(rho/rho0)
     
@@ -36,8 +35,6 @@ def Truespeed(h_p, TAT, V_IAS):
     Temp    =   TAT/(1.+(((gamma-1.)/2)*M**2.))
     a_mach  =   np.sqrt(gamma*R*Temp)
     V_t     =   M*a_mach
-    rho     =   p/(R*Temp)
-    V_e     =   V_t*np.sqrt(rho/rho0)
     
     return V_t
     
@@ -48,7 +45,6 @@ def rhoeq(h_p, TAT, V_IAS):
     p       =   p0*(1.+(lambda1*h_p/Temp0))**(-g/(lambda1*R))
     M       =   np.sqrt((2./(gamma-1.))*((((p0/p)*(((1.+(((gamma-1.)*rho0*V_IAS**2.)/(2*gamma*p0)))**(gamma/(gamma-1.)))-1.))+1.)**((gamma-1.)/gamma) -1.))
     Temp    =   TAT/(1.+(((gamma-1.)/2)*M**2.))
-    a_mach  =   np.sqrt(gamma*R*Temp)
     rho     =   p/(R*Temp)
     
     return rho

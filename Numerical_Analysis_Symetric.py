@@ -10,8 +10,6 @@ from Cit_par import *
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
-V0=phugoid_eq_speed[0]
-
 # Assigning coefficients to matrices
 C1 = np.matrix([[-2*muc*(c/(V0**2)), 0, 0, 0],
                 [0, (CZadot-2*muc)*(c/V0), 0, 0],
