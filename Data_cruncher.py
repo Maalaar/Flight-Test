@@ -29,24 +29,23 @@ step = 0.1
 
 class Motion:
     def __init__(self,stime,mt):
-        self.index      =       np.where(time==stime)[0][0]
-        self.deltae     =       deltae[self.index:self.index+(mt/step)]
-        self.height     =       h_p[self.index:self.index+(mt/step)]
-        self.TAT        =       TAT[self.index:self.index+(mt/step)]
-        self.IASkts     =       v_ias[self.index:self.index+(mt/step)]
-        self.IAS        =       self.IASkts*kts_to_ms
-        self.AoA        =       AoA[self.index:self.index+(mt/step)]
-        self.EAS        =       equivalentspeed(self.height, self.TAT, self.IASkts)
-        self.TAS        =       Truespeed(self.height, self.TAT, self.IAS)
-        self.time       =       time
-        self.mt         =       mt
-        self.delta_r    =       delta_r[self.index:self.index+(mt/step)]
-        self.delta_a    =       delta_a[self.index:self.index+(mt/step)]
-        self.weight     =       Wf[self.index:self.index+(mt/step)]
-        self.weight0    =       [np.average(self.weight[0:5])]
-        self.V0         =       np.average(self.EAS[0:5])
-        self.AoA0       =       np.average(self.AoA[0:5])
-        self.constants  =       constants(self.weight0, self.V0, self.AoA0, rho0, 0)
+        self.index                              =       np.where(time==stime)[0][0]
+        self.deltae                             =       deltae[self.index:self.index+(mt/step)]
+        self.height                             =       h_p[self.index:self.index+(mt/step)]
+        self.TAT                                =       TAT[self.index:self.index+(mt/step)]
+        self.IASkts                             =       v_ias[self.index:self.index+(mt/step)]
+        self.EAS, self.TAS, self.rho, self.M    =       equivalentspeed(self.height, self.TAT, self.IASkts)
+        self.IAS                                =       self.IASkts*kts_to_ms
+        self.AoA                                =       AoA[self.index:self.index+(mt/step)]
+        self.time                               =       stime
+        self.mt                                 =       mt
+        self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]
+        self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]
+        self.weight                             =       Wf[self.index:self.index+(mt/step)]
+        self.weight0                            =       [np.average(self.weight[0:5])]
+        self.V0                                 =       np.average(self.EAS[0:5])
+        self.AoA0                               =       np.average(self.AoA[0:5])
+        self.constants                          =       constants(self.weight0, self.V0, self.AoA0, rho0, 0)
 #symetric motions
 
 #phugoid motion
