@@ -11,9 +11,15 @@ from cog import *
 from Cit_par import *
 from scipy import stats
 
+
+list1 = [ CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+
+
+
+
 #inputs #this example: third drag polar measurement
-Wf     = [805.]
-V      = 194.
+Wf     = [800.]
+V      = 120.
 a      = 2.5*np.pi/180.
 gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
 rho    = 0.675127 #19000ft
@@ -139,6 +145,7 @@ def constants(Wf, V, a, rho, gamma0):
     
     from staticstability import CNwa, CNha
     CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
+    
     #notes page 170
     #can be simplified to: CZa = -CLa - CD
     #but this version is more complete, including the tail
@@ -166,6 +173,7 @@ def constants(Wf, V, a, rho, gamma0):
     
     
     CZadot = -CNha*(Vh_V**2)*deda*Sh*lh     /(S*c)
+   
     Cmadot = -CNha*(Vh_V**2)*deda*Sh*(lh**2)/(S*(c**2))
     #notes page 185
     #neglecting higher order derivatives of alpha
@@ -315,3 +323,7 @@ def constants(Wf, V, a, rho, gamma0):
             CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
             
 CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr = constants(Wf, V, a, rho, gamma0)
+list2 = [CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+print np.array(list2)/np.array(list1)
+
+print list2[11]/list1[11]
