@@ -140,7 +140,7 @@ def constants(Wf, V, a, rho, gamma0):
     #can be simplified to: CZa = -CLa - CD
     #but this version is more complete, including the tail
     
-    
+    xh = xcg + lh
     Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(xh-xcg)/c
     #notes page 173
     #using data from drag polar measurements during flight test
@@ -303,7 +303,6 @@ def constants(Wf, V, a, rho, gamma0):
     #notes page 240
     
     
-    xh = xcg + lh
     Cndr = -CYdr*(xh-xcg)/b
     #notes page 240
     #assuming xv-xcg = xh-xcg

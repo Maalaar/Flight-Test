@@ -6,10 +6,11 @@ Created on Thu Mar  9 13:35:19 2017
 """
 import numpy as np
 import control.matlab as cs
-from Cit_par import *
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
+def Symetric(MotionParametrs Class):
+    
 # Assigning coefficients to matrices
 C1 = np.matrix([[-2*muc*(c/(V0**2)), 0, 0, 0],
                 [0, (CZadot-2*muc)*(c/V0), 0, 0],

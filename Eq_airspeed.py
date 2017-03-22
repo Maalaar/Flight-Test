@@ -22,6 +22,8 @@ def equivalentspeed(h_p, TAT, V_IAS):
     M       =   np.sqrt((2./(gamma-1.))*((((p0/p)*(((1.+(((gamma-1.)*rho0*V_IAS**2.)/(2*gamma*p0)))**(gamma/(gamma-1.)))-1.))+1.)**((gamma-1.)/gamma) -1.))
     Temp    =   TAT/(1.+(((gamma-1.)/2)*M**2.))
     rho     =   p/(R*Temp)
+    a_mach  =   np.sqrt(gamma*R*Temp)
+    V_t     =   M*a_mach
     V_e     =   V_t*np.sqrt(rho/rho0)
     
     return V_e

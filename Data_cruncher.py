@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from Eq_airspeed import *
 from alltheconstants import *
 
@@ -34,16 +33,20 @@ class Motion:
         self.deltae     =       deltae[self.index:self.index+(mt/step)]
         self.height     =       h_p[self.index:self.index+(mt/step)]
         self.TAT        =       TAT[self.index:self.index+(mt/step)]
-        self.IAS.kts    =       v_ias[self.index:self.index+(mt/step)]
-        self.IAS        =       self.IAS.kts*kts_to_ms
+        self.IASkts     =       v_ias[self.index:self.index+(mt/step)]
+        self.IAS        =       self.IASkts*kts_to_ms
         self.AoA        =       AoA[self.index:self.index+(mt/step)]
-        self.EAS        =       equivalentspeed(self.height, self.TAT, self.IAS.kts)
+        self.EAS        =       equivalentspeed(self.height, self.TAT, self.IASkts)
         self.TAS        =       Truespeed(self.height, self.TAT, self.IAS)
         self.time       =       time
         self.mt         =       mt
         self.delta_r    =       delta_r[self.index:self.index+(mt/step)]
         self.delta_a    =       delta_a[self.index:self.index+(mt/step)]
-        
+        self.weight     =       Wf[self.index:self.index+(mt/step)]
+        self.weight0    =       [np.average(self.weight[0:5])]
+        self.V0         =       np.average(self.EAS[0:5])
+        self.AoA0       =       np.average(self.AoA[0:5])
+        self.constants  =       constants(self.weight0, self.V0, self.AoA0, rho0, 0)
 #symetric motions
 
 #phugoid motion
@@ -76,4 +79,5 @@ AperiodicRollP  =   Motion(APR_time, APR_mt)
 SPRL_time       =   3600.*1. + 60.*21. + 50.
 SPRL_mt         =   400
 SpiralP         =   Motion(SPRL_time,SPRL_mt)
+
 
