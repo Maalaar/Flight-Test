@@ -8,7 +8,9 @@ import numpy as np
 import control.matlab as cs
 from Cit_par import *
 import matplotlib.pyplot as plt
-from Data_cruncher_vanmij import *
+from Data_cruncher import *
+
+V0=phugoid_eq_speed[0]
 
 # Assigning coefficients to matrices
 C1 = np.matrix([[-2*muc*(c/(V0**2)), 0, 0, 0],
@@ -38,9 +40,9 @@ D = np.matrix([[0], [0], [0], [0]])
 sys = cs.ss(A, B, C, D)
 
 #input of control system
-delev = deltae *(np.pi/180) #input of elevator deflection
+delev = phugoid_deltae *(np.pi/180) #input of elevator deflection
 t = np.linspace(0,len(delev)*0.1, num=len(delev), endpoint=True, retstep=False) #time step and range 
-Xinit = np.matrix([[0], [0  ], [0], [0]]) # initial values for control system
+Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
 y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
 
@@ -71,22 +73,20 @@ y4 = y4*(180/np.pi)
 plt.subplot(221)
 plt.title('u')
 plt.plot(t, y1)
-plt.plot(t, v_tas)
+plt.plot(t, phugoid_eq_speed)
 
 plt.subplot(222)
 plt.title('alpha')
 plt.plot(t, y2)
-plt.plot(t, AOA)
-
+plt.plot(t, phugoid_AoA)
 
 plt.subplot(223)
 plt.title('Theta')
 plt.plot(t, y3)
-plt.plot(t, pitch)
+
 
 plt.subplot(224)
 plt.title('q')
 plt.plot(t, y4)
-plt.plot(t, rate)
 
 plt.show()

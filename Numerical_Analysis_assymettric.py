@@ -10,6 +10,7 @@ from Cit_par import *
 import matplotlib.pyplot as plt
 from Data_cruncher_vanmij import *
 
+
 # Assigning coefficients to matrices
 C1 = np.matrix([[(CYbdot-2*mub)*b/V0,0, 0, 0],
                 [0,-0.5*b/V0, 0, 0],
@@ -45,7 +46,6 @@ sys = cs.ss(A, B, C, D)
 
 #input of control system
 delev = np.column_stack((delta_a,delta_r))/180*np.pi
-
 t = np.linspace(0,len(delta_a)*0.1, num=len(delta_r), endpoint=True, retstep=False) #time step and range 
 Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
 y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dynamic stability
