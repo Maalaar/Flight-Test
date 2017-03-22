@@ -77,7 +77,7 @@ Eigen2=eigenvaluesasym(CYb,CYbdot,mub,CL,CYp,CYr,Clb,Clp,KX2,Clr,KXZ,Cnb,Cnbdot,
 
 
 
-V=120. ######################################################
+V=V0 ######################################################
 
 
 
