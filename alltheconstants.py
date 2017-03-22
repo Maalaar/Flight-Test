@@ -12,17 +12,17 @@ from Cit_par import *
 from scipy import stats
 
 #inputs #this example: third drag polar measurement
-Wf     = [805.]
-V      = 194.
-a      = 2.5*np.pi/180.
-gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
-rho    = 0.675127 #19000ft
+#Wf     = [805.]
+#V      = 194.
+#a      = 2.5*np.pi/180.
+#gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
+#rho    = 0.675127 #19000ft
 
 ### INPUTS:
 #Wf = Fuel used in lbs
-#V = airspeed in m/s
+#V = equivalent airspeed in m/s
 #a = angle of attack in rad
-#rho = density in kg/m3
+#rho = rho0 in kg/m3
 #gamma0 = flight path angle (=0 when flying straight forward aka altitude does not change during experiment)
 
 ### OUTPUTS:

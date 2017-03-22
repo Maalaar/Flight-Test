@@ -24,19 +24,15 @@ W = weightstuff[0] #Newton
 xcg = weightstuff[1] #meters
 
 #forces
-CL = 2 * W / (rho * V ** 2 * S)   
+CL =  W / (0.5 * rho * V ** 2 * S)   
 CD = CD0 + (CLa * alpha) ** 2 / (np.pi * A * e)
 CN = CL*np.cos(alpha) + CD*np.sin(alpha)
 CT = CD*np.cos(alpha) - CL*np.sin(alpha)
 
 #lecture 2 slides 17 & 22
-Cmle = -CN*(e/c)
-from scipy import stats
-Cmalphale = stats.linregress(alpha,Cmle)[0]
-CNalphale = stats.linregress(alpha,CN)[0]
 xle = 0.0254*261.56
-xac = xle - c*Cmalphale/CNalphale
-Cmac = -Cmle + CN*(xle-xac)/c
+mac = 0.0254*80.98
+xac = xle + 0.25*mac #assuming ac at 25% mac
 
 #introducing tail, lecture 3 slides 13 & 15
 CTw = CT
@@ -73,12 +69,7 @@ CD2 = CD0 + (CLa * alpha2) ** 2 / (np.pi * A * e)
 CN2 = CL2*np.cos(alpha2) + CD2*np.sin(alpha2)
 CT2 = CD2*np.cos(alpha2) - CL2*np.sin(alpha2)
 
-Cmle2 = -CN2*(e/c)
-from scipy import stats
-Cmalphale2 = stats.linregress(alpha2,Cmle2)[0]
-CNalphale2 = stats.linregress(alpha2,CN2)[0]
-xac2 = xle - c*Cmalphale2/CNalphale2
-Cmac2 = -Cmle2 + CN2*(xle-xac2)/c
+xac2 = xac
 
 CTw2 = CT2
 CNw2 = []
