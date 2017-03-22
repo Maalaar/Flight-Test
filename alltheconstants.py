@@ -8,8 +8,43 @@ Created on Wed Mar 15 11:53:33 2017
 #imports
 import numpy as np
 from cog import *
-from Cit_par import *
+#from Cit_par import *
 from scipy import stats
+
+# Constant values concerning atmosphere and gravity
+
+rho0   = 1.2250          # air density at sea level [kg/m^3] 
+lambda1 = -0.0065         # temperature gradient in ISA [K/m]
+Temp0  = 288.15          # temperature at sea level in ISA [K]
+R      = 287.05          # specific gas constant [m^2/sec^2K]
+g      = 9.81            # [m/sec^2] (gravity constant)
+
+# Constant values concerning aircraft inertia
+
+KX2    = 0.019
+KZ2    = 0.042
+KXZ    = 0.002
+KY2    = 1.25 * 1.114
+
+# Aircraft geometry
+
+S      = 30.00	          # wing area [m^2]
+Sh     = 0.2 * S         # stabiliser area [m^2]
+Sh_S   = Sh / S	          # [ ]
+lh     = 0.71 * 5.968    # tail length [m]
+c      = 2.0569	          # mean aerodynamic cord [m]
+lh_c   = lh / c	          # [ ]
+b      = 15.911	          # wing span [m]
+bh     = 5.791	          # stabilser span [m]
+A      = b ** 2 / S      # wing aspect ratio [ ]
+Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
+Vh_V   = 1	          # [ ]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
+
+# aerodynamic properties
+e      =  0.87745470146438931  # Oswald factor [ ]
+CD0    =  0.025563672225735336 # Zero lift drag coefficient [ ]
+CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
 
 #inputs #this example: third drag polar measurement
 Wf     = [805.]
@@ -63,6 +98,8 @@ rho    = 0.675127 #19000ft
 #32 - Cldr
 #33 - Cndr
 
+# Constant values concerning aircraft inertia
+
 def constants(Wf, V, a, rho, gamma0):
     
     #basic forces
@@ -82,7 +119,11 @@ def constants(Wf, V, a, rho, gamma0):
     from staticstability import Cmalphale, CNalphale
     xle = 0.0254*261.56 #appendix C
     xac = xle - c*Cmalphale/CNalphale
-      
+    
+    
+    #Aircraft Inertia
+    muc    = m / (rho * S * c)
+    mub    = m / (rho * S * b)
     ######################################
     ##### SYMMETRIC FLIGHT CONSTANTS #####
     ##### from the FD lecture notes  #####
@@ -308,6 +349,7 @@ def constants(Wf, V, a, rho, gamma0):
     #assuming xv-xcg = xh-xcg
     
     return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
-            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr, \
+            muc, mub]
             
 answer = constants(Wf, V, a, rho, gamma0)
