@@ -106,8 +106,6 @@ def constants(Wf, V, a, rho, gamma0):
     
     
     CZ0 = CL*np.cos(gamma0) 
-    print CZ0
-    print CL
     #notes page 163
     #this is equal to CL if the flight path angle is 0 at 0 AoA
     #which should be true because we don't gain altitude during this part of the flight test
@@ -143,7 +141,7 @@ def constants(Wf, V, a, rho, gamma0):
     #but this version is more complete, including the tail
     
     
-    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c)
+    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(xh-xcg)/c
     #notes page 173
     #using data from drag polar measurements during flight test
     
@@ -290,7 +288,7 @@ def constants(Wf, V, a, rho, gamma0):
     #only source to determine this [74] is in the UB and currently lend out
     
     
-    CYdr = +0.2300
+    CYdr = +0.2300 #<--- FROM APPENDIX C
     #notes page 239
     #keeping this the same as well because:
     #   Sources are vague
