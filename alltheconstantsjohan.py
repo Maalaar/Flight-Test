@@ -11,15 +11,9 @@ from cog import *
 from Cit_par import *
 from scipy import stats
 
-
-list1 = [ CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
-
-
-
-
 #inputs #this example: third drag polar measurement
-Wf     = [800.]
-V      = 120.
+Wf     = [805.]
+V      = 25.
 a      = 2.5*np.pi/180.
 gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
 rho    = 0.675127 #19000ft
@@ -94,7 +88,7 @@ def constants(Wf, V, a, rho, gamma0):
     ##### from the FD lecture notes  #####
     ##### starting at page 161       #####
     ######################################
-    
+   
     
     deda = 2*CLa/(np.pi*A)
     #downwash derivative d(eta)/d(alpha) is required for some of these derivatives
@@ -112,8 +106,6 @@ def constants(Wf, V, a, rho, gamma0):
     
     
     CZ0 = CL*np.cos(gamma0) 
-    #print CZ0
-    #print CL
     #notes page 163
     #this is equal to CL if the flight path angle is 0 at 0 AoA
     #which should be true because we don't gain altitude during this part of the flight test
@@ -123,9 +115,8 @@ def constants(Wf, V, a, rho, gamma0):
     #notes page 163
     #balanced flight, so no moments around CG
     
-   
+    
     CXu = -2*CD
-    #print CXu
     CZu = -2*CL
     Cmu = 0
     #notes page 168 & 187
@@ -145,13 +136,12 @@ def constants(Wf, V, a, rho, gamma0):
     
     from staticstability import CNwa, CNha
     CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
-    
     #notes page 170
     #can be simplified to: CZa = -CLa - CD
     #but this version is more complete, including the tail
     
-    
-    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh*lh)/(S*c)
+    xh = xcg + lh
+    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(xh-xcg)/c
     #notes page 173
     #using data from drag polar measurements during flight test
     
@@ -173,7 +163,6 @@ def constants(Wf, V, a, rho, gamma0):
     
     
     CZadot = -CNha*(Vh_V**2)*deda*Sh*lh     /(S*c)
-   
     Cmadot = -CNha*(Vh_V**2)*deda*Sh*(lh**2)/(S*(c**2))
     #notes page 185
     #neglecting higher order derivatives of alpha
@@ -182,6 +171,7 @@ def constants(Wf, V, a, rho, gamma0):
     CXde = 0
     #notes page 185
     #"commonly neglected" in subsonic flight
+    
     
     
     from staticstability import CNhde
@@ -299,7 +289,7 @@ def constants(Wf, V, a, rho, gamma0):
     #only source to determine this [74] is in the UB and currently lend out
     
     
-    CYdr = +0.2300
+    CYdr = +0.2300 #<--- FROM APPENDIX C
     #notes page 239
     #keeping this the same as well because:
     #   Sources are vague
@@ -314,16 +304,14 @@ def constants(Wf, V, a, rho, gamma0):
     #notes page 240
     
     
-    xh = xcg + lh
     Cndr = -CYdr*(xh-xcg)/b
     #notes page 240
     #assuming xv-xcg = xh-xcg
     
-    return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
-            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
-            
-CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr = constants(Wf, V, a, rho, gamma0)
-list2 = [CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,      CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
-print np.array(list2)/np.array(list1)
-
-print list2[11]/list1[11]
+    return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,     CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+list1=[ CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,     CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,     CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr = constants(Wf, V, a, rho, gamma0)
+list2=[ CX0, CZ0,  CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde,     CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]  
+list1=np.array(list1)
+list2 = np.array(list2)
+print list2/list1

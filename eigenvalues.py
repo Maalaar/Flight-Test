@@ -1,7 +1,7 @@
 import numpy as np
 from sympy import *
-from Cit_par import *
-#from alltheconstantsjohan import *
+#from Cit_par import *
+from alltheconstantsjohan import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
