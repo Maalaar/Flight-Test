@@ -26,6 +26,8 @@ KX2    = 0.019
 KZ2    = 0.042
 KXZ    = 0.002
 KY2    = 1.25 * 1.114
+m      = 60532.81018594/9.81
+Wt     = m*g
 
 # Aircraft geometry
 
@@ -97,10 +99,20 @@ CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
 #31 - CYdr
 #32 - Cldr
 #33 - Cndr
+#34 - muc
+#35 - mub
 
 # Constant values concerning aircraft inertia
 
 def constants(Wf, V, a, rho, gamma0, de):
+    
+    
+    ######################################
+    ##### BASIC STABILITY            #####
+    ##### from the FD lecture slides #####
+    ##### lecture 2 & 3 mostly       #####
+    ######################################    
+    
     
     #determining essential derivatives, just like in staticstability.py
     W = float(cog(Wf)[0])
@@ -141,12 +153,15 @@ def constants(Wf, V, a, rho, gamma0, de):
     muc    = m / (rho * S * c)
     mub    = m / (rho * S * b)
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> d119db18042d6ce096f80e84b3c6de8c1989e0b0
     ######################################
     ##### SYMMETRIC FLIGHT CONSTANTS #####
     ##### from the FD lecture notes  #####
     ##### starting at page 161       #####
     ######################################
-
     
     
     CX0 = CL*np.sin(gamma0) 
@@ -354,5 +369,9 @@ def constants(Wf, V, a, rho, gamma0, de):
     
     return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
             CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr, \
+<<<<<<< HEAD
+            muc, mub]
+=======
             muc, mub]
             
+>>>>>>> d119db18042d6ce096f80e84b3c6de8c1989e0b0

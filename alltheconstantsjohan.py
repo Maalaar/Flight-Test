@@ -366,4 +366,18 @@ CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde
 list2=[   CX0, CZ0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr,      muc, mub,CL,CD]
 list1=np.array(list1)
 list2=np.array(list2)
+print list1
+print list2
+
+
+
+
+namen = ["CX0", "CZ0",  "CXu", "CZu", "Cmu", "CXa", "CZa", "Cma", "CXq", "CZq", "Cmq", "CZadot", "Cmadot", "CXde", "CZde", "Cmde", "CYb", "CYbdot", "Clb", "Cnb", "Cnbdot", "CYp", "Clp", "Cnp", "CYr", "Clr", "Cnr", "CYda", "Clda", "Cnda", "CYdr", "Cldr", "Cndr",      "muc", "mub","CL","CD"]
+
+for i in range(len(namen)):
+    print namen[i]
+    print list1[i]
+    print list2[i]
+    print " "
+
 
