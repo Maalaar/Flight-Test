@@ -18,6 +18,7 @@ lambda1 = -0.0065         # temperature gradient in ISA [K/m]
 Temp0  = 288.15          # temperature at sea level in ISA [K]
 R      = 287.05          # specific gas constant [m^2/sec^2K]
 g      = 9.81            # [m/sec^2] (gravity constant)
+a0     = 0  #<--- PLACEHOLDER, IDK?
 
 # Constant values concerning aircraft inertia
 
@@ -46,19 +47,18 @@ e      =  0.87745470146438931  # Oswald factor [ ]
 CD0    =  0.025563672225735336 # Zero lift drag coefficient [ ]
 CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
 
-#inputs #this example: third drag polar measurement
-Wf     = [805.]
-V      = 194.
-a      = 2.5*np.pi/180.
-gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
-rho    = 0.675127 #19000ft
+
+
+
+
 
 ### INPUTS:
 #Wf = Fuel used in lbs
-#V = airspeed in m/s
+#V = equivalent airspeed in m/s
 #a = angle of attack in rad
-#rho = density in kg/m3
+#rho = rho0 in kg/m3
 #gamma0 = flight path angle (=0 when flying straight forward aka altitude does not change during experiment)
+#de = elevator deflection in rad
 
 ### OUTPUTS:
 #this function returns a matrix with:
@@ -100,36 +100,31 @@ rho    = 0.675127 #19000ft
 
 # Constant values concerning aircraft inertia
 
-def constants(Wf, V, a, rho, gamma0):
+def constants(Wf, V, a, rho, gamma0, de):
     
-    #basic forces
+    #determining essential derivatives, just like in staticstability.py
     W = float(cog(Wf)[0])
     m = W/g
     xcg = float(cog(Wf)[1])
     
     CL = W/(0.5 * rho * V**2 * S)
     CD = CD = CD0 + (CLa * a) ** 2 / (np.pi * A * e)
-    
-    Tc = -CD #level flight, thrust = drag
-    
     CN = CL*np.cos(a) + CD*np.sin(a)
     CT = CD*np.cos(a) - CL*np.sin(a)
     
-    #AC location, as done in staticstability.py as well, but now for one value
-    from staticstability import Cmalphale, CNalphale
-    xle = 0.0254*261.56 #appendix C
-    xac = xle - c*Cmalphale/CNalphale
+    xle = 0.0254*261.56
+    mac = 0.0254*80.98
+    xac = xle + 0.25*mac #assuming ac at 25% mac
+    Cmac = (xcg-xac)*CN #CG as reference point, neglecting tail for now
     
+    CTw = CT
+    xh = lh + xac
+    CNh = (c / (Vh_V**2 * Sh_S * lh)) * (-Cmac - CN*(xcg-xac)/c)
+    CNw = CN - CNh * Vh_V**2 * Sh_S
     
-    #Aircraft Inertia
-    muc    = m / (rho * S * c)
-    mub    = m / (rho * S * b)
-    ######################################
-    ##### SYMMETRIC FLIGHT CONSTANTS #####
-    ##### from the FD lecture notes  #####
-    ##### starting at page 161       #####
-    ######################################
-    
+    CNa = -CL*np.sin(alpha) + CD*np.cos(alpha)
+    CNha = CNa*(xcg-xac)/(Vh_V**2 * Sh_S * lh)
+    CNwa = CNa - CNha*Vh_V**2*Sh_S
     
     deda = 2*CLa/(np.pi*A)
     #downwash derivative d(eta)/d(alpha) is required for some of these derivatives
@@ -137,7 +132,21 @@ def constants(Wf, V, a, rho, gamma0):
     #assumptions made: 
     #   eliptical lift distribution
     #   attached, non-separated flow
-    #   A>5, which is true for the citation
+    #   this is a nice approximation for A>5, which is true for the citation
+    
+    ah = a - (a-a0)*deda + ih
+    CNhde = CNha*ah/de
+    
+    #Aircraft Inertia
+    muc    = m / (rho * S * c)
+    mub    = m / (rho * S * b)
+    
+    ######################################
+    ##### SYMMETRIC FLIGHT CONSTANTS #####
+    ##### from the FD lecture notes  #####
+    ##### starting at page 161       #####
+    ######################################
+
     
     
     CX0 = CL*np.sin(gamma0) 
@@ -175,7 +184,6 @@ def constants(Wf, V, a, rho, gamma0):
     #pretty straightforward
     
     
-    from staticstability import CNwa, CNha
     CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
     #notes page 170
     #can be simplified to: CZa = -CLa - CD
@@ -214,16 +222,12 @@ def constants(Wf, V, a, rho, gamma0):
     #"commonly neglected" in subsonic flight
     
     
-    from staticstability import CNhde
     CZde = -CNhde*(Vh_V**2)*Sh_S
     #notes page 186
-    #CNhde calculated using elevator measurements of flight test
     
     
-    from staticstability import CNde
-    Cmde = -CNde*(Vh_V**2)*Sh*lh/(S*c)
-    #notes page 186
-    #CNde calculated using elevator measurements of flight test
+    Cmde = -(Cm0 + Cma(a-a0))/de
+    #lecture 3 slide 37
     
     
     
@@ -352,4 +356,3 @@ def constants(Wf, V, a, rho, gamma0):
             CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr, \
             muc, mub]
             
-answer = constants(Wf, V, a, rho, gamma0)
