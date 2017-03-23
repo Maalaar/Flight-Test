@@ -102,6 +102,14 @@ CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
 
 def constants(Wf, V, a, rho, gamma0, de):
     
+    
+    ######################################
+    ##### BASIC STABILITY            #####
+    ##### from the FD lecture slides #####
+    ##### lecture 2 & 3 mostly       #####
+    ######################################    
+    
+    
     #determining essential derivatives, just like in staticstability.py
     W = float(cog(Wf)[0])
     m = W/g
@@ -141,12 +149,12 @@ def constants(Wf, V, a, rho, gamma0, de):
     muc    = m / (rho * S * c)
     mub    = m / (rho * S * b)
     
+    
     ######################################
     ##### SYMMETRIC FLIGHT CONSTANTS #####
     ##### from the FD lecture notes  #####
     ##### starting at page 161       #####
     ######################################
-
     
     
     CX0 = CL*np.sin(gamma0) 
