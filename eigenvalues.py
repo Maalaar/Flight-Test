@@ -1,12 +1,16 @@
 import numpy as np
 from sympy import *
-from Cit_par import *
+from Cit_par_SUKKELS import *
 #from alltheconstantsjohan import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
-
-
+V0 = 100.
+alpha0=0.
+th0=0.
+m=60532.81018594/9.80665
+hp0=3000.
+e,CD0,CLa,Cma,Cmde,S,Sh,Sh_s,lh,c,lh_c,b,bh,A,Ah,Vh_v,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr = kutmaarten(V0,alpha0,th0,m,hp0)
 
 #print CXu
 
