@@ -6,5 +6,5 @@ def fuelmoment(fuel_used,fuel_start):
 
 
     return fuelmoments[int((fuel_start-fuel_used)/100.+0.5)-1]
-print fuelmoment(0,4150)
+
 
