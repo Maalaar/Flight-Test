@@ -8,15 +8,49 @@ Created on Wed Mar 15 11:53:33 2017
 #imports
 import numpy as np
 from cog import *
-from Cit_par import *
+#from Cit_par import *
 from scipy import stats
 
-#inputs #this example: third drag polar measurement
-#Wf     = [805.]
-#V      = 194.
-#a      = 2.5*np.pi/180.
-#gamma0 = 0 #in our static tests: flight path = straight forward, no altitude change
-#rho    = 0.675127 #19000ft
+# Constant values concerning atmosphere and gravity
+
+rho0   = 1.2250          # air density at sea level [kg/m^3] 
+lambda1 = -0.0065         # temperature gradient in ISA [K/m]
+Temp0  = 288.15          # temperature at sea level in ISA [K]
+R      = 287.05          # specific gas constant [m^2/sec^2K]
+g      = 9.81            # [m/sec^2] (gravity constant)
+a0     = 0  #<--- PLACEHOLDER, IDK?
+
+# Constant values concerning aircraft inertia
+
+KX2    = 0.019
+KZ2    = 0.042
+KXZ    = 0.002
+KY2    = 1.25 * 1.114
+
+# Aircraft geometry
+
+S      = 30.00	          # wing area [m^2]
+Sh     = 0.2 * S         # stabiliser area [m^2]
+Sh_S   = Sh / S	          # [ ]
+lh     = 0.71 * 5.968    # tail length [m]
+c      = 2.0569	          # mean aerodynamic cord [m]
+lh_c   = lh / c	          # [ ]
+b      = 15.911	          # wing span [m]
+bh     = 5.791	          # stabilser span [m]
+A      = b ** 2 / S      # wing aspect ratio [ ]
+Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
+Vh_V   = 1	          # [ ]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
+
+# aerodynamic properties
+e      =  0.87745470146438931  # Oswald factor [ ]
+CD0    =  0.025563672225735336 # Zero lift drag coefficient [ ]
+CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
+
+
+
+
+
 
 ### INPUTS:
 #Wf = Fuel used in lbs
@@ -24,6 +58,7 @@ from scipy import stats
 #a = angle of attack in rad
 #rho = rho0 in kg/m3
 #gamma0 = flight path angle (=0 when flying straight forward aka altitude does not change during experiment)
+#de = elevator deflection in rad
 
 ### OUTPUTS:
 #this function returns a matrix with:
@@ -63,32 +98,33 @@ from scipy import stats
 #32 - Cldr
 #33 - Cndr
 
-def constants(Wf, V, a, rho, gamma0):
+# Constant values concerning aircraft inertia
+
+def constants(Wf, V, a, rho, gamma0, de):
     
-    #basic forces
+    #determining essential derivatives, just like in staticstability.py
     W = float(cog(Wf)[0])
     m = W/g
     xcg = float(cog(Wf)[1])
     
     CL = W/(0.5 * rho * V**2 * S)
     CD = CD = CD0 + (CLa * a) ** 2 / (np.pi * A * e)
-    
-    Tc = -CD #level flight, thrust = drag
-    
     CN = CL*np.cos(a) + CD*np.sin(a)
     CT = CD*np.cos(a) - CL*np.sin(a)
     
-    #AC location, as done in staticstability.py as well, but now for one value
-    from staticstability import Cmalphale, CNalphale
-    xle = 0.0254*261.56 #appendix C
-    xac = xle - c*Cmalphale/CNalphale
-      
-    ######################################
-    ##### SYMMETRIC FLIGHT CONSTANTS #####
-    ##### from the FD lecture notes  #####
-    ##### starting at page 161       #####
-    ######################################
+    xle = 0.0254*261.56
+    mac = 0.0254*80.98
+    xac = xle + 0.25*mac #assuming ac at 25% mac
+    Cmac = (xcg-xac)*CN #CG as reference point, neglecting tail for now
     
+    CTw = CT
+    xh = lh + xac
+    CNh = (c / (Vh_V**2 * Sh_S * lh)) * (-Cmac - CN*(xcg-xac)/c)
+    CNw = CN - CNh * Vh_V**2 * Sh_S
+    
+    CNa = -CL*np.sin(alpha) + CD*np.cos(alpha)
+    CNha = CNa*(xcg-xac)/(Vh_V**2 * Sh_S * lh)
+    CNwa = CNa - CNha*Vh_V**2*Sh_S
     
     deda = 2*CLa/(np.pi*A)
     #downwash derivative d(eta)/d(alpha) is required for some of these derivatives
@@ -96,7 +132,21 @@ def constants(Wf, V, a, rho, gamma0):
     #assumptions made: 
     #   eliptical lift distribution
     #   attached, non-separated flow
-    #   A>5, which is true for the citation
+    #   this is a nice approximation for A>5, which is true for the citation
+    
+    ah = a - (a-a0)*deda + ih
+    CNhde = CNha*ah/de
+    
+    #Aircraft Inertia
+    muc    = m / (rho * S * c)
+    mub    = m / (rho * S * b)
+    
+    ######################################
+    ##### SYMMETRIC FLIGHT CONSTANTS #####
+    ##### from the FD lecture notes  #####
+    ##### starting at page 161       #####
+    ######################################
+
     
     
     CX0 = CL*np.sin(gamma0) 
@@ -134,13 +184,12 @@ def constants(Wf, V, a, rho, gamma0):
     #pretty straightforward
     
     
-    from staticstability import CNwa, CNha
     CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
     #notes page 170
     #can be simplified to: CZa = -CLa - CD
     #but this version is more complete, including the tail
     
-    
+    xh = xcg + lh
     Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(xh-xcg)/c
     #notes page 173
     #using data from drag polar measurements during flight test
@@ -173,16 +222,12 @@ def constants(Wf, V, a, rho, gamma0):
     #"commonly neglected" in subsonic flight
     
     
-    from staticstability import CNhde
     CZde = -CNhde*(Vh_V**2)*Sh_S
     #notes page 186
-    #CNhde calculated using elevator measurements of flight test
     
     
-    from staticstability import CNde
-    Cmde = -CNde*(Vh_V**2)*Sh*lh/(S*c)
-    #notes page 186
-    #CNde calculated using elevator measurements of flight test
+    Cmde = -(Cm0 + Cma(a-a0))/de
+    #lecture 3 slide 37
     
     
     
@@ -303,12 +348,11 @@ def constants(Wf, V, a, rho, gamma0):
     #notes page 240
     
     
-    xh = xcg + lh
     Cndr = -CYdr*(xh-xcg)/b
     #notes page 240
     #assuming xv-xcg = xh-xcg
     
     return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
-            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr]
+            CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr, \
+            muc, mub]
             
-answer = constants(Wf, V, a, rho, gamma0)
