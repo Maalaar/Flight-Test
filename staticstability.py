@@ -24,37 +24,27 @@ W = weightstuff[0] #Newton
 xcg = weightstuff[1] #meters
 
 #forces
-CL = 2 * W / (rho * V ** 2 * S)   
+CL =  W / (0.5 * rho * V ** 2 * S)   
 CD = CD0 + (CLa * alpha) ** 2 / (np.pi * A * e)
 CN = CL*np.cos(alpha) + CD*np.sin(alpha)
 CT = CD*np.cos(alpha) - CL*np.sin(alpha)
 
 #lecture 2 slides 17 & 22
-Cmle = -CN*(e/c)
-from scipy import stats
-Cmalphale = stats.linregress(alpha,Cmle)[0]
-CNalphale = stats.linregress(alpha,CN)[0]
 xle = 0.0254*261.56
-xac = xle - c*Cmalphale/CNalphale
-Cmac = -Cmle + CN*(xle-xac)/c
+mac = 0.0254*80.98
+xac = xle + 0.25*mac #assuming ac at 25% mac
+Cmac = (xcg-xac)*CN #CG as reference point
 
 #introducing tail, lecture 3 slides 13 & 15
 CTw = CT
 xh = lh + xac
-CNw = []
-CNh = []
-for j in range(1,len(xcg)):
-    CNa = np.array([[1              , Vh_V**2*Sh_S           ],\
-                    [(xcg[j]-xac)/c , Vh_V**2*Sh_S*(xcg[j]-xh)/c]])
-    CNb = np.array([CN,-Cmac])
-    CNw = np.linalg.solve(CNa,CNb)[0]
-    CNh = np.linalg.solve(CNa,CNb)[1]
+CNh = (c / (Vh_V**2 * Sh_S * lh)) * (-Cmac - CN*(xcg-xac)/c)
+CNw = CN - CNh * Vh_V**2 * Sh_S
 
 #some derivatives
-from scipy import stats
-CNwa   = stats.linregress(alpha,CNw)[0]
-CNha   = stats.linregress(alpha,CNh)[0]
-CNa    = stats.linregress(alpha,CN)[0]
+CNa = -CL*np.sin(alpha) + CD*np.cos(alpha)
+CNha = CNa*(xcg-xac)/(Vh_V**2 * Sh_S * lh)
+CNwa = CNa - CNha*Vh_V**2*Sh_S
 
 #elevator stuff
 #using the second measurement series instead of the first
@@ -73,22 +63,23 @@ CD2 = CD0 + (CLa * alpha2) ** 2 / (np.pi * A * e)
 CN2 = CL2*np.cos(alpha2) + CD2*np.sin(alpha2)
 CT2 = CD2*np.cos(alpha2) - CL2*np.sin(alpha2)
 
-Cmle2 = -CN2*(e/c)
-from scipy import stats
-Cmalphale2 = stats.linregress(alpha2,Cmle2)[0]
-CNalphale2 = stats.linregress(alpha2,CN2)[0]
-xac2 = xle - c*Cmalphale2/CNalphale2
-Cmac2 = -Cmle2 + CN2*(xle-xac2)/c
+Cmac2 = (xcg2-xac)*CN2
 
 CTw2 = CT2
-CNw2 = []
-CNh2 = []
-for j in range(1,len(xcg2)):
-    CNa2 = np.array([[1               , Vh_V**2*Sh_S               ],\
-                    [(xcg2[j]-xac2)/c , Vh_V**2*Sh_S*(xcg2[j]-xh)/c]])
-    CNb2 = np.array([CN2,-Cmac2])
-    CNw2 = np.linalg.solve(CNa2,CNb2)[0]
-    CNh2 = np.linalg.solve(CNa2,CNb2)[1]
+CNh2 = (c / (Vh_V**2 * Sh_S * lh)) * (-Cmac2 - CN2*(xcg2-xac)/c)
+CNw2 = CN2 - CNh2 * Vh_V**2 * Sh_S
 
-CNhde = stats.linregress(de,CNh2)[0]
-CNde  = stats.linregress(de,CN2)[0]
+CNa2 = -CL2*np.sin(alpha2) + CD2*np.cos(alpha2)
+CNha2 = CNa2*(xcg2-xac)/(Vh_V**2 * Sh_S * lh)
+CNwa2 = CNa2 - CNha2*Vh_V**2*Sh_S
+
+deda = 2*CLa/(np.pi*A)
+#downwash derivative d(eta)/d(alpha) is required for some of these derivatives
+#this formula comes from the notes page 325 and provides a "rough estimate"
+#assumptions made: 
+#   eliptical lift distribution
+#   attached, non-separated flow
+#   this is a nice approximation for A>5, which is true for the citation
+
+alphah = alpha2 - (alpha2 - alpha0)*deda + ih
+CNhde = CNha2*alphah/de 
