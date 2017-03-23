@@ -220,4 +220,3 @@ def kutmaarten(V0,alpha0,th0,m,hp0):
 
     return e,CD0,CLa,Cma,Cmde,S,Sh,Sh_s,lh,c,lh_c,b,bh,A,Ah,Vh_v,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr
 
->>>>>>> 10e39ca4b29e5988a8b83e36a4833f8bdc40c881
