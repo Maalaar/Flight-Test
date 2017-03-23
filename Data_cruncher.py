@@ -19,6 +19,7 @@ delta_r     = np.genfromtxt('data/delta_r[deg].txt', delimiter ='/n')           
 delta_a     = np.genfromtxt('data/delta_a[deg].txt', delimiter ='/n')           #deg
 h_p         = np.genfromtxt('data/h_p[ft].txt', delimiter ='/n')                #ft
 TAT         = np.genfromtxt('data/TAT[degc].txt', delimiter ='/n')              #degrees celsius
+roll_angle  = np.genfromtxt('data/roll_angle[deg].txt', delimiter ='/n')           #deg
 
 #Total fuel usage
 Wf = Wfl + Wfr 
@@ -31,7 +32,7 @@ step = 0.1
 class Motion:
     def __init__(self,stime,mt):
         self.index                              =       np.where(time==stime)[0][0]
-        self.deltae                             =       deltae[self.index:self.index+(mt/step)]
+        self.deltae                             =       deltae[self.index:self.index+(mt/step)]/180*np.pi
         self.height                             =       h_p[self.index:self.index+(mt/step)]
         self.TAT                                =       TAT[self.index:self.index+(mt/step)]
         self.IASkts                             =       v_ias[self.index:self.index+(mt/step)]
@@ -48,11 +49,15 @@ class Motion:
         self.AoA0                               =       np.average(self.AoA[0:5])
         self.PitchAngle                         =       pitch_angle[self.index:self.index+(mt/step)]
         self.PitchAngle0                        =       np.average(self.PitchAngle[0:5])
+        self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
+        self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
+        self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
         self.CX0, self.CZ0, self.Cm0, self.CXu, self.CZu, self.Cmu, self.CXa, self.CZa,\
         self.Cma, self.CXq, self.CZq, self.Cmq, self.CZadot, self.Cmadot, self.CXde,\
         self.CZde, self.Cmde, self.CYb, self.CYbdot, self.Clb, self.Cnb, self.Cnbdot, \
         self.CYp, self.Clp, self.Cnp, self.CYr, self.Clr, self.Cnr, self.CYda, self.Clda, \
         self.Cnda, self.CYdr, self.Cldr, self.Cndr, self.muc, self.mub        =       constants(self.weightf0, self.V0, self.AoA0, rho0, 0)
+        self.allconstants                 =       constants(self.weightf0, self.V0, self.AoA0, rho0, 0)                                  
 #symetric motions
 
 #phugoid motion
