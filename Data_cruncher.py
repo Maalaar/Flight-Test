@@ -1,6 +1,6 @@
 import numpy as np
 from Eq_airspeed import *
-from alltheconstants import *
+from Cit_par import *
 import matplotlib.pyplot as plt
 
 #importing all measured data from text files into numpy arrays
@@ -45,6 +45,7 @@ class Motion:
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]
         self.weightf                            =       Wf[self.index:self.index+(mt/step)]
         self.weightf0                           =       [np.average(self.weightf[0:5])]
+        self.weight                             =       cog(self.weightf0)
         self.V0                                 =       np.average(self.EAS[0:5])
         self.AoA0                               =       np.average(self.AoA[0:5])
         self.PitchAngle                         =       pitch_angle[self.index:self.index+(mt/step)]
@@ -56,8 +57,7 @@ class Motion:
         self.Cma, self.CXq, self.CZq, self.Cmq, self.CZadot, self.Cmadot, self.CXde,\
         self.CZde, self.Cmde, self.CYb, self.CYbdot, self.Clb, self.Cnb, self.Cnbdot, \
         self.CYp, self.Clp, self.Cnp, self.CYr, self.Clr, self.Cnr, self.CYda, self.Clda, \
-        self.Cnda, self.CYdr, self.Cldr, self.Cndr, self.muc, self.mub        =       constants(self.weightf0, self.V0, self.AoA0, rho0, 0)
-        self.allconstants                 =       constants(self.weightf0, self.V0, self.AoA0, rho0, 0)                                  
+        self.Cnda, self.CYdr, self.Cldr, self.Cndr, self.muc, self.mub        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight)                              
 #symetric motions
 
 #phugoid motion
