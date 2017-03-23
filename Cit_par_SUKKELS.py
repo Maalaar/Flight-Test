@@ -81,11 +81,13 @@ Cnr    =  -0.2061
 Cnda   =  -0.0120
 Cndr   =  -0.0939
 
-def kutmaarten(V0,alpha0,th0,W,hp0):
-    
-    # air density [kg/m^3]  
-    rho    = rho0 * np.power( ((1+(lambda1 * hp0 / Temp0))), (-((g / (lambda1*R)) + 1)))   
-    m      = W/g
+def kutmaarten(V0,alpha0,th0,W,hp):
+    # air density [kg/m^3]
+    hp0     = hp*0.3048
+    alpha0  *= (np.pi/180)
+    th0     *= (np.pi/180)
+    rho     =  rho0 * np.power( ((1+(lambda1 * int(hp0) / Temp0))), (-((g / (lambda1*R)) + 1)))
+    m       =  W/g
 
     # Constant values concerning aircraft inertia
 
@@ -93,7 +95,7 @@ def kutmaarten(V0,alpha0,th0,W,hp0):
     mub    = m / (rho * S * b) 
 
     # Lift and drag coefficient
-
+    print m, V0, rho, W, S, hp0
     CL = 2 * W / (rho * V0 ** 2 * S)              # Lift coefficient [ ]
     CD = CD0 + (CLa * alpha0) ** 2 / (np.pi * A * e) # Drag coefficient [ ]
 
@@ -104,5 +106,6 @@ def kutmaarten(V0,alpha0,th0,W,hp0):
 
     CZ0    = -W * np.cos(th0) / (0.5 * rho * V0 ** 2 * S)
 
+    
     return rho,muc,mub,CL,CD,CX0,CZ0
 

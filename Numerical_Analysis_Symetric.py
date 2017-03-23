@@ -2,7 +2,7 @@
 """
 Created on Thu Mar  9 13:35:19 2017
 
-@author: Robin
+@author: Robshortin
 """
 import numpy as np
 import control.matlab as cs
