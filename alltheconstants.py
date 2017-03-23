@@ -25,6 +25,8 @@ KX2    = 0.019
 KZ2    = 0.042
 KXZ    = 0.002
 KY2    = 1.25 * 1.114
+m      = 60532.81018594/9.81
+Wt     = m*g
 
 # Aircraft geometry
 
@@ -97,6 +99,8 @@ rho    = 0.675127 #19000ft
 #31 - CYdr
 #32 - Cldr
 #33 - Cndr
+#34 - muc
+#35 - mub
 
 # Constant values concerning aircraft inertia
 
@@ -124,6 +128,7 @@ def constants(Wf, V, a, rho, gamma0):
     #Aircraft Inertia
     muc    = m / (rho * S * c)
     mub    = m / (rho * S * b)
+    
     ######################################
     ##### SYMMETRIC FLIGHT CONSTANTS #####
     ##### from the FD lecture notes  #####
@@ -351,5 +356,3 @@ def constants(Wf, V, a, rho, gamma0):
     return [CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, \
             CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr, \
             muc, mub]
-            
-answer = constants(Wf, V, a, rho, gamma0)
