@@ -18,7 +18,7 @@ lambda1 = -0.0065         # temperature gradient in ISA [K/m]
 Temp0  = 288.15          # temperature at sea level in ISA [K]
 R      = 287.05          # specific gas constant [m^2/sec^2K]
 g      = 9.81            # [m/sec^2] (gravity constant)
-a0     = 0  #<--- PLACEHOLDER, IDK?
+
 
 # Constant values concerning aircraft inertia
 
@@ -52,11 +52,13 @@ CLa    =  4.3517004179616956   # Slope of CL-alpha curve [ ]
 Wf = [1000.]
 V0=103.
 V=V0
+a0     = 5./180*np.pi #<--- PLACEHOLDER, IDK?
 a=a0
+alpha=a0
 rho = 0.7
 gamma0=1./180.*np.pi
 de=2./180.*np.pi
-alpha=2.5/180*np.pi
+
 
 ### INPUTS:
 #Wf = Fuel used in lbs
@@ -125,11 +127,15 @@ def constants(Wf, V, a, rho, gamma0, de):
     
     CTw = CT
     xh = lh + xac
-    CNh = (c / (Vh_V**2 * Sh_S * lh)) * (-Cmac - CN*(xcg-xac)/c)
+    CNh = (c / (Vh_V**2 * Sh_S * lh)) * (Cmac + CN*(xcg-xac)/c)
     CNw = CN - CNh * Vh_V**2 * Sh_S
     
     CNa = -CL*np.sin(alpha) + CD*np.cos(alpha)
-    CNha = CNa*(xcg-xac)/(Vh_V**2 * Sh_S * lh)
+    
+    print alpha
+    print CL
+    print CD
+    CNha = 1./(Vh_V**2*S*lh/c)*(CNa*(xcg-xac)/c)
     CNwa = CNa - CNha*Vh_V**2*Sh_S
     
     deda = 2*CLa/(np.pi*A)
@@ -161,7 +167,7 @@ def constants(Wf, V, a, rho, gamma0, de):
     #which should be true because we don't gain altitude during this part of the flight test
     
     
-    CZ0 = CL*np.cos(gamma0) 
+    CZ0 = -CL*np.cos(gamma0) 
     #notes page 163
     #this is equal to CL if the flight path angle is 0 at 0 AoA
     #which should be true because we don't gain altitude during this part of the flight test
@@ -190,13 +196,16 @@ def constants(Wf, V, a, rho, gamma0, de):
     #pretty straightforward
     
     
-    CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
+    #CZa = -CNwa - CNha*(1-deda)*(Vh_V**2)*Sh_S
     #notes page 170
-    #can be simplified to: CZa = -CLa - CD
+    CZa = -CLa - CD
     #but this version is more complete, including the tail
     
     xh = xcg + lh
-    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(xh-xcg)/c
+    Cma    = CNwa*(xcg-xac)/c - CNha*(1-deda)*(Vh_V**2)*(Sh_S*lh/c)
+    #print CNwa*(xcg-xac)
+    #print CNha*(1-deda)*(Vh_V**2)*(Sh_S*lh/c)
+   
     #notes page 173
     #using data from drag polar measurements during flight test
     
@@ -366,8 +375,8 @@ CX0, CZ0, Cm0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde
 list2=[   CX0, CZ0, CXu, CZu, Cmu, CXa, CZa, Cma, CXq, CZq, Cmq, CZadot, Cmadot, CXde, CZde, Cmde, CYb, CYbdot, Clb, Cnb, Cnbdot, CYp, Clp, Cnp, CYr, Clr, Cnr, CYda, Clda, Cnda, CYdr, Cldr, Cndr,      muc, mub,CL,CD]
 list1=np.array(list1)
 list2=np.array(list2)
-print list1
-print list2
+#print list1
+#print list2
 
 
 
