@@ -1,6 +1,6 @@
 import numpy as np
 from Eq_airspeed import *
-from Cit_par import *
+from Cit_par_SUKKELS import *
 import matplotlib.pyplot as plt
 
 #importing all measured data from text files into numpy arrays
@@ -34,6 +34,7 @@ class Motion:
         self.index                              =       np.where(time==stime)[0][0]
         self.deltae                             =       deltae[self.index:self.index+(mt/step)]/180*np.pi
         self.height                             =       h_p[self.index:self.index+(mt/step)]
+        self.height0                            =       np.average(self.height[0:5])
         self.TAT                                =       TAT[self.index:self.index+(mt/step)]
         self.IASkts                             =       v_ias[self.index:self.index+(mt/step)]
         self.EAS, self.TAS, self.rho, self.M    =       equivalentspeed(self.height, self.TAT, self.IASkts)
@@ -45,7 +46,7 @@ class Motion:
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]
         self.weightf                            =       Wf[self.index:self.index+(mt/step)]
         self.weightf0                           =       [np.average(self.weightf[0:5])]
-        self.weight                             =       cog(self.weightf0)
+        self.weight                             =       np.subtract(66183,self.weightf0)[0]
         self.V0                                 =       np.average(self.EAS[0:5])
         self.AoA0                               =       np.average(self.AoA[0:5])
         self.PitchAngle                         =       pitch_angle[self.index:self.index+(mt/step)]
@@ -53,11 +54,7 @@ class Motion:
         self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
         self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
         self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
-        self.CX0, self.CZ0, self.Cm0, self.CXu, self.CZu, self.Cmu, self.CXa, self.CZa,\
-        self.Cma, self.CXq, self.CZq, self.Cmq, self.CZadot, self.Cmadot, self.CXde,\
-        self.CZde, self.Cmde, self.CYb, self.CYbdot, self.Clb, self.Cnb, self.Cnbdot, \
-        self.CYp, self.Clp, self.Cnp, self.CYr, self.Clr, self.Cnr, self.CYda, self.Clda, \
-        self.Cnda, self.CYdr, self.Cldr, self.Cndr, self.muc, self.mub        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight)                              
+        self.rho,self.muc,self.mub,self.CL,self.CD,self.CX0,self.CZ0        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight, self.height0)                              
 #symetric motions
 
 #phugoid motion
@@ -67,7 +64,7 @@ phugoidP        =   Motion(phugoid_time,phugoid_mt)
 
 #short period
 short_time      =   3600.*1. + 60.*14. + 24.
-short_mt        =   6
+short_mt        =   200
 shortP          =   Motion(short_time, short_mt)
 #       assymetric motion
 
