@@ -45,7 +45,7 @@ def Symetric(name):
 
     #input of control system
     delev = name.deltae *(np.pi/180) #input of elevator deflection
-    t = name.time 
+    t = np.linspace(0,len(name.deltae)*0.1, num=len(name.deltae), endpoint=True, retstep=False) #time step and range  
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
@@ -64,13 +64,14 @@ def Symetric(name):
     y3 = np.transpose(y3)
     y4 = np.transpose(y4)
 
-    y1 = y1 + name.V0
-    y2 += name.AoA0
-    y3 += name.PitchAngle0
-
     y2 = y2*(180/np.pi)
     y3 = y3*(180/np.pi)
     y4 = y4*(180/np.pi)
+    
+    y1 += name.V0
+    y2 += name.AoA0
+    y3 += name.PitchAngle0
+
 
 #    plotting the total grpahs
     plt.subplot(221)
@@ -92,5 +93,6 @@ def Symetric(name):
     plt.subplot(224)
     plt.title('q')
     plt.plot(t, y4)
+
     
     plt.show()
