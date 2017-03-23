@@ -12,7 +12,7 @@ import numpy as np
 #th0    = 0.         # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-<<<<<<< HEAD
+
 m      =   60532.81018594/9.80665          # mass [kg]
 
 # aerodynamic properties
