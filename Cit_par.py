@@ -16,7 +16,7 @@ import numpy as np
 
 
 
-def kutmaarten(V0,alpha0,th0,m):
+def kutmaarten(V0,alpha0,th0,m,hp0):
 
 
     # aerodynamic properties
