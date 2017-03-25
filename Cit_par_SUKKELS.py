@@ -95,7 +95,7 @@ def kutmaarten(V0,alpha0,th0,W,hp):
     mub    = m / (rho * S * b) 
 
     # Lift and drag coefficient
-    print m, V0, rho, W, S, hp0
+    #print m, V0, rho, W, S, hp0
     CL = 2 * W / (rho * V0 ** 2 * S)              # Lift coefficient [ ]
     CD = CD0 + (CLa * alpha0) ** 2 / (np.pi * A * e) # Drag coefficient [ ]
 
@@ -107,5 +107,4 @@ def kutmaarten(V0,alpha0,th0,W,hp):
     CZ0    = -W * np.cos(th0) / (0.5 * rho * V0 ** 2 * S)
 
     
-    return rho,muc,mub,CL,CD,CX0,CZ0
-
+    return "FUCK JOU"
