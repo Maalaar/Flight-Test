@@ -190,7 +190,14 @@ print "Period: ", 2*np.pi/((V/c*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
 
 print " "
 print "Asymmetrical"
-print "Eigen1"
+print "Eigen1",Clp/(4*mub*KX2)
 
+A=8*mub**2*KZ2
+B=-2*mub*(Cnr+2*KZ2*CYb)
+C=4*mub*Cnb +CYb*Cnr
 
+print "Omega0: ", V/b*(C/A)**0.5
+print "Damping: ",abs(-B/(2*(A*C)**0.5))
+print "Period: ",2*np.pi/((V/b*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
 
+print "Eigen4",(2*CL*(Clb*Cnr-Cnb*Clr))    /     (  Clp*(CYb*Cnr+4*mub*Cnb) -  Cnp*(CYb*Clr+4*mub*Clb)  )
