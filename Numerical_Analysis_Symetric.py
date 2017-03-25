@@ -2,7 +2,7 @@
 """
 Created on Thu Mar  9 13:35:19 2017
 
-@author: Robin
+@author: Robshortin
 """
 import numpy as np
 import control.matlab as cs
@@ -13,24 +13,24 @@ def Symetric(name):
     
     # Assigning coefficients to matrices
     C1 = np.matrix([[-2*name.muc*(c/(name.V0)), 0, 0, 0],
-                    [0, (name.CZadot-2*name.muc)*(c/name.V0), 0, 0],
+                    [0, (CZadot-2*name.muc)*(c/name.V0), 0, 0],
                     [0, 0, -(c/name.V0), 0],
-                    [0, name.Cmadot*(c/name.V0), 0, -2*name.muc*KY2*((c/name.V0))]])
+                    [0, Cmadot*(c/name.V0), 0, -2*name.muc*KY2*((c/name.V0))]])
 
     C1[:,0]/=name.V0
     C1[:,3]*=(c/name.V0)
     
-    C2 = np.matrix([[name.CXu, name.CXa, name.CZ0, 0],
-                    [name.CZu, name.CZa, -name.CX0, (name.CZq + 2*name.muc)],
+    C2 = np.matrix([[CXu, CXa, name.CZ0, 0],
+                    [CZu, CZa, name.CX0, (CZq + 2*name.muc)],
                     [0, 0, 0, 1],
-                    [name.Cmu, name.Cma, 0, name.Cmq]])
+                    [Cmu, Cma, 0, Cmq]])
     C2[:,0]/=name.V0
     C2[:,3]*=(c/name.V0)
                 
-    C3 = np.matrix([[name.CXde],
-                    [name.CZde],
+    C3 = np.matrix([[CXde],
+                    [CZde],
                     [0],
-                    [name.Cmde]])
+                    [Cmde]])
  
      #combining the matrices to generate the state space system               
     A = - np.linalg.inv(C1)*C2
@@ -44,11 +44,12 @@ def Symetric(name):
     sys = cs.ss(A, B, C, D)
 
     #input of control system
-    delev = name.deltae *(np.pi/180) #input of elevator deflection
+    delev = name.deltae  #input of elevator deflection
     t = np.linspace(0,len(name.deltae)*0.1, num=len(name.deltae), endpoint=True, retstep=False) #time step and range  
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
+    print sys, C1, C2, C3, np.linalg.eig(A)
     #plotting
     y1 = []
     y2=[]
