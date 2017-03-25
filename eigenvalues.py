@@ -8,7 +8,9 @@ x, y = symbols('x y')
 V0 = 100.
 alpha0=0.
 th0=0.
-m=60532.81018594/9.80665
+#m=60532.81018594/9.80665
+m=6500.
+#print m
 hp0=3000.
 e,CD0,CLa,Cma,Cmde,S,Sh,Sh_s,lh,c,lh_c,b,bh,A,Ah,Vh_v,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr = kutmaarten(V0,alpha0,th0,m,hp0)
 
@@ -162,6 +164,33 @@ print " "
 print "First Aperiodic:  ",round(re(lambda5),4),"±",abs(round(im(lambda5),4)),"j"
 print "Second Aperiodic: ",round(re(lambda6),4),"±",abs(round(im(lambda6),4)),"j"
 print "Periodic:         ",round(re(lambda7),4),"±",abs(round(im(lambda7),4)),"j"
+
+
+
+print " "
+print "ANALYTICAL SIMPLIFICATION"
+print " "
+print "Symmetrical"
+A = 2*muc*KY2*(2*muc-CZadot)
+B = -2*muc*KY2*CZa - (2*muc+CZq)*Cmadot - (2*muc-CZadot)*Cmq
+C = CZa * Cmq - (2*muc+CZq)*Cma
+
+print "Short Eigenvalue: ",-B/(2*A) , "±", (4*A*C-B**2)**0.5/(2*A),"j"
+print "Omega0: ", V/c*(C/A)**0.5,"rad/s"
+print "Damping: ", abs(-B/(2*(A*C)**0.5))
+print "Period: ", 2*np.pi/((V/c*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+A = 2*muc*(CZa*Cmq-2*muc*Cma)
+B = 2*muc*(CXu*Cma- Cmu*CXa)+Cmq*(CZu*CXa - CXu*CZa)
+C = CZ0*(Cmu*CZa-CZu*Cma)
+
+print "Phugoid Eigenvalue: ",-B/(2*A) , "±", abs((4*A*C-B**2)**0.5/(2*A)),"j"
+print "Omega0: ", V/c*(C/A)**0.5,"rad/s"
+print "Damping: ", abs(-B/(2*(A*C)**0.5))
+print "Period: ", 2*np.pi/((V/c*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+
+print " "
+print "Asymmetrical"
+print "Eigen1"
 
 
 
