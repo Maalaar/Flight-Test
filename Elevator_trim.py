@@ -87,15 +87,19 @@ linspace = np.linspace(60,100,num = 50)
 
 keke = terms[2] + terms[1] * linspace + terms[0] * linspace**2
 
-#plt.close()
-#plt.gca().invert_yaxis()
-#plt.scatter(V_e_red_s, Fe_red_s)
-#plt.title(r'Reduced Control Force')
-#plt.ylabel(r'$F_e^*$(-) in N')
-#plt.xlabel(r'$\tilde{V_{e}}$ in m/s')
-#plt.axhline(0, color='black')
-#plt.plot(linspace,keke,linestyle='dashed')
-#plt.show()
+plt.close()
+plt.gca().invert_yaxis()
+plt.scatter(V_e_red_s, Fe_red_s)
+plt.title(r'Reduced Control Force')
+plt.ylabel(r'$F_e^*$(-) in N')
+plt.xlabel(r'$\tilde{V_{e}}$ in m/s')
+plt.axhline(0, color='black')
+
+for i, txt in enumerate(FFT):
+    plt.annotate("{:6.4f}".format(txt), (V_e_red[i]+1,Fe_red[i]+0.0005))
+
+plt.plot(linspace,keke,linestyle='dashed')
+plt.show()
 
 FFT = (FFl + FFr) * lbs_to_kg / 3600.
 
@@ -122,20 +126,20 @@ linspace2 = np.linspace(0.04, 0.15, num=20)
 keke3 = terms3[0] * linspace2 + terms3[1]
 a_s_inv = a_s[::-1]
 
-plt.close()
-plt.gca().invert_yaxis()
-plt.scatter(a_s_inv, de_red_s)
-plt.title(r'Reduced Elevator Deflection')
-plt.ylabel(r'$\delta_e^*$ [rad]')
-plt.xlabel(r'$\alpha$ [rad]')
-plt.axhline(0, color='black')
-plt.plot(linspace2,keke3,linestyle='dashed')
-
-FFT_inv = FFT[::-1]
-for i, txt in enumerate(FFT):
-    plt.annotate("{:6.4f}".format(txt), (a[i]+0.005,de_red[i]+0.0005))
-
-plt.show()
+#plt.close()
+#plt.gca().invert_yaxis()
+#plt.scatter(a_s_inv, de_red_s)
+#plt.title(r'Reduced Elevator Deflection')
+#plt.ylabel(r'$\delta_e^*$ [rad]')
+#plt.xlabel(r'$\alpha$ [rad]')
+#plt.axhline(0, color='black')
+#plt.plot(linspace2,keke3,linestyle='dashed')
+#
+#FFT_inv = FFT[::-1]
+#for i, txt in enumerate(FFT):
+#    plt.annotate("{:6.4f}".format(txt), (a[i]+0.005,de_red[i]+0.0005))
+#
+#plt.show()
 
 
 cogstart = cog.cog([FFr[0]+FFl[0]])
