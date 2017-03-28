@@ -113,6 +113,9 @@ omega2=2*np.pi/P2
 damping1=abs(re(lambda1)/((re(lambda1)**2+im(lambda1)**2))**0.5)
 damping2=abs(re(lambda3)/((re(lambda3)**2+im(lambda3)**2))**0.5)
 
+
+print "logical", np.pi*2*re(lambda1)/im(lambda1)
+print "logical", np.pi*2*re(lambda3)/im(lambda3)
 ###############ASYMMETRIC
 
 lambda5=Eigen2[0]
