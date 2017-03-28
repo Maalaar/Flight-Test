@@ -86,9 +86,15 @@ DutchRollY_mt   =   100
 DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
+<<<<<<< HEAD
+APR_time        =   3600.*1. + 60.*19. + 35.
+APR_mt          =   15
+AperiodicRollP  =   Motion(APR_time, APR_mt)
+=======
 APR_time        =   3600.*1. + 60.*19. + 10.
 APR_mt          =   100
 AperiodicRoll  =   Motion(APR_time, APR_mt)
+>>>>>>> add08e3b9f48cc34c6ae840c99475ba672e6f7ee
 
 #Spiral
 SPRL_time       =   3600.*1. + 60.*22
