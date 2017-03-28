@@ -9,7 +9,7 @@ import control.matlab as cs
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
-namem = "Short Period"
+namem = "Phugoid"
 
 def Symetric(name):
     print name
