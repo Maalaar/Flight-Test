@@ -116,6 +116,7 @@ def Symetric(name):
     plt.plot(t, (delev*180/np.pi))
     plt.ylabel("$\delta_e$ [deg]")
     plt.xlabel("t [s]")
+    plt.savefig((namem + "elevatordeflection"))
     plt.legend
     
 
