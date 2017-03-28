@@ -66,7 +66,7 @@ class Motion:
 
 #phugoid motion
 phugoid_time    =   3600.*1. + 60.*15. + 40.
-phugoid_mt      =   15
+phugoid_mt      =   150
 Phugoid        =   Motion(phugoid_time,phugoid_mt)
 
 #short period

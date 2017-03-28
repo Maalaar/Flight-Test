@@ -9,6 +9,8 @@ import control.matlab as cs
 from Data_cruncher import *
 import matplotlib.pyplot as plt
 
+namem="Dutch Roll"
+
 def Asymetric(name):
     
     # Assigning coefficients to matrices
@@ -76,24 +78,42 @@ def Asymetric(name):
     y4 = y4*(180/np.pi)
     
     #plotting the total grpahs
-    plt.subplot(221)
-    plt.title('angle of sideslip')
-    plt.plot(t, y1)
-    
-    plt.subplot(222)
-    plt.title('roll angle')
-    plt.plot(t, y2)
-    plt.plot(t,name.RollAngle)
-    
-    
-    plt.subplot(223)
-    plt.title('p')
-    plt.plot(t, y3)
-    plt.plot(t,name.RollRate)
-    
-    plt.subplot(224)
-    plt.title('r')
-    plt.plot(t, y4)
-    plt.plot(t, name.YawRate)
-    
+    plt.figure(0)
+    plt.title('Angle of Sideslip ')
+    plt.plot(t, y1, label="Numerical")
+    plt.ylabel(r"$\beta$ [deg]")
+    plt.xlabel("t [s]")
+#    plt.plot(t, name.EAS, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "Angle of Sideslip"))
     plt.show()
+    
+    plt.figure(1)
+    plt.title('Roll Angle ')
+    plt.plot(t, y2, label="Numerical")
+    plt.ylabel("$\Phi$ [deg]")
+    plt.xlabel("t [s]")
+    plt.plot(t, name.RollAngle, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "RollAngle"))
+    plt.show()
+    
+    plt.figure(2)
+    plt.title('Roll Rate')
+    plt.plot(t, y3, label="Numerical")
+    plt.ylabel("p [deg/s]")
+    plt.xlabel("t [s]")
+    plt.plot(t, name.RollRate, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "RollRate"))
+    plt.show()
+
+    plt.figure(3)
+    plt.title('Yaw Rate')
+    plt.plot(t, y4, label="Numerical")
+    plt.ylabel("r [deg/s]")
+    plt.xlabel("t [s]")
+    plt.plot(t, name.YawRate, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "YawRate"))
+    plt.show()   
