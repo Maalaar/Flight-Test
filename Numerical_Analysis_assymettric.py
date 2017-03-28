@@ -10,6 +10,7 @@ from Data_cruncher import *
 import matplotlib.pyplot as plt
 
 def Asymetric(name):
+    
     # Assigning coefficients to matrices
     C1 = np.matrix([[(CYbdot-2*name.mub),0, 0, 0],
                     [0,-0.5, 0, 0],
