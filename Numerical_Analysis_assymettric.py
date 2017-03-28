@@ -9,7 +9,7 @@ import control.matlab as cs
 from Data_cruncher import *
 import matplotlib.pyplot as plt
 
-namem="Dutch Roll"
+namem="Aperiodic Roll"
 
 def Asymetric(name):
     
@@ -91,7 +91,7 @@ def Asymetric(name):
     plt.figure(1)
     plt.title('Roll Angle ')
     plt.plot(t, y2, label="Numerical")
-    plt.ylabel("$\Phi$ [deg]")
+    plt.ylabel("$\phi$ [deg]")
     plt.xlabel("t [s]")
     plt.plot(t, name.RollAngle, label="Experimental")
     plt.legend()
@@ -117,3 +117,19 @@ def Asymetric(name):
     plt.legend()
     plt.savefig((namem + "YawRate"))
     plt.show()   
+    
+    plt.figure(4)
+    plt.title("Aileron Deflection")
+    plt.plot(t, (name.delta_a_stab*180/np.pi))
+    plt.ylabel("$\delta_a$ [deg]")
+    plt.xlabel("t [s]")
+    plt.savefig((namem + "Ailerondeflection"))
+    plt.legend
+    
+    plt.figure(5)
+    plt.title("Rudder Deflection")
+    plt.plot(t, (name.delta_r_stab*180/np.pi))
+    plt.ylabel("$\delta_r$ [deg]")
+    plt.xlabel("t [s]")
+    plt.savefig((namem + "Rudder Deflection"))
+    plt.legend
