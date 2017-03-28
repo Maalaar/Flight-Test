@@ -6,32 +6,32 @@ Created on Thu Mar  9 13:35:19 2017
 """
 import numpy as np
 import control.matlab as cs
-from Cit_par import *
+from Data_cruncher import *
 import matplotlib.pyplot as plt
-from Data_cruncher_vanmij import *
 
-def Asymetric(name)
+def Asymetric(name):
     # Assigning coefficients to matrices
-    C1 = np.matrix([[(name.CYbdot-2*name.mub)*b/name.V0,0, 0, 0],
-                [0,-0.5*b/V0, 0, 0],
-                [0, 0, -4*name.mub*KX2*b/name.V0, 4*name.mub*KXZ*b/name.V0],
-                [name.Cnbdot*b/name.V0, 0, 4*name.mub*KXZ*b/name.V0, -4*name.mub*KZ2*b/name.V0]])
-
-    C1[:,2]*=b/(2*V0)
-    C1[:,3]*=b/(2*V0)
-
-    C2 = np.matrix([[name.CYb, name.CL, name.CYp, name.CYr-4*name.mub],
+    C1 = np.matrix([[(CYbdot-2*name.mub),0, 0, 0],
+                    [0,-0.5, 0, 0],
+                    [0, 0, -4*name.mub*KX2, 4*name.mub*KXZ],
+                    [Cnbdot, 0, 4*name.mub*KXZ, -4*name.mub*KZ2]])
+                    
+    C1[:]   *=b/name.V0
+    C1[:,2] *=b/(2*name.V0)
+    C1[:,3] *=b/(2*name.V0)
+    print np.linalg.eig(C1)
+    C2 = np.matrix([[CYb, name.CL, CYp, CYr-4*name.mub],
                     [0 , 0, 1, 0],
-                    [name.Clb, 0, name.Clp, name.Clr],
-                    [name.Cnb, 0, name.Cnp, name.Cnr]])
+                    [Clb, 0, Clp, Clr],
+                    [Cnb, 0, Cnp, Cnr]])
                 
-    C2[:,2]*=b/(2*V0)
-    C2[:,3]*=b/(2*V0)
-                
-    C3 = np.matrix([[name.CYda, name.CYdr],
+    C2[:,2]*=b/(2*name.V0)
+    C2[:,3]*=b/(2*name.V0)
+    print np.linalg.eig(C2)            
+    C3 = np.matrix([[CYda, CYdr],
                     [0, 0],
-                    [name.Clda, name.Cldr],
-                    [name.Cnda, name.Cndr]])
+                    [Clda, Cldr],
+                    [Cnda, Cndr]])
  
     #combining the matrices to generate the state space system               
     A = - np.linalg.inv(C1)*C2
@@ -45,11 +45,12 @@ def Asymetric(name)
     sys = cs.ss(A, B, C, D)
 
     #input of control system
-    delev = np.column_stack((delta_a,delta_r))/180*np.pi
-    t = np.linspace(0,len(delta_a)*0.1, num=len(delta_r), endpoint=True, retstep=False) #time step and range 
+    delev = np.column_stack((name.delta_a,name.delta_r))
+    t = np.linspace(0,len(name.delta_r)*0.1, num=len(name.delta_r), endpoint=True, retstep=False) #time step and range 
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dynamic stability
-
+#    print sys, C1, C2, C3, np.linalg.eig(A)
+    
     #plotting
     y1 = []
     y2=[]
@@ -65,9 +66,9 @@ def Asymetric(name)
     y3 = np.transpose(y3)
     y4 = np.transpose(y4)
     
-    y1 = y1 + V0
-    y2 += alpha0
-    y3 += th0
+    y2 += 0
+    y3 += 0
+    y4 += 0
     
     y2 = y2*(180/np.pi)
     y3 = y3*(180/np.pi)

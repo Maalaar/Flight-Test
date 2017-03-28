@@ -19,14 +19,14 @@ def Symetric(name):
 
     C1[:,0]/=name.V0
     C1[:,3]*=(c/name.V0)
-    
+    print np.linalg.eig(C1)
     C2 = np.matrix([[CXu, CXa, name.CZ0, 0],
                     [CZu, CZa, name.CX0, (CZq + 2*name.muc)],
                     [0, 0, 0, 1],
                     [Cmu, Cma, 0, Cmq]])
     C2[:,0]/=name.V0
     C2[:,3]*=(c/name.V0)
-                
+    print np.linalg.eig(C2)               
     C3 = np.matrix([[CXde],
                     [CZde],
                     [0],
@@ -49,7 +49,7 @@ def Symetric(name):
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
 
-    print sys, C1, C2, C3, np.linalg.eig(A)
+#    print sys, C1, C2, C3, np.linalg.eig(A)
     #plotting
     y1 = []
     y2=[]
