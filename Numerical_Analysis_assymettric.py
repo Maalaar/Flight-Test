@@ -9,7 +9,7 @@ import control.matlab as cs
 from Data_cruncher import *
 import matplotlib.pyplot as plt
 
-namem="Dutch Roll"
+namem="kek"
 
 def Asymetric(name):
     
@@ -71,11 +71,14 @@ def Asymetric(name):
     
     y2 += 0
     y3 += 0
-    y4 += 0
     
-    y2 = y2*(180/np.pi)
-    y3 = y3*(180/np.pi)
-    y4 = y4*(180/np.pi)
+    
+    y2 *= (180/np.pi)
+    y3 *= (180/np.pi)
+    y4 *= (180/np.pi)
+    y2 += name.RollAngle0
+    y3 += name.RollRate0
+    y4 += name.YawRate0
     
     #plotting the total grpahs
     plt.figure(0)
@@ -91,7 +94,7 @@ def Asymetric(name):
     plt.figure(1)
     plt.title('Roll Angle ')
     plt.plot(t, y2, label="Numerical")
-    plt.ylabel("$\Phi$ [deg]")
+    plt.ylabel("$\phi$ [deg]")
     plt.xlabel("t [s]")
     plt.plot(t, name.RollAngle, label="Experimental")
     plt.legend()
@@ -117,3 +120,19 @@ def Asymetric(name):
     plt.legend()
     plt.savefig((namem + "YawRate"))
     plt.show()   
+    
+    plt.figure(4)
+    plt.title("Aileron Deflection")
+    plt.plot(t, (name.delta_a_stab*180/np.pi))
+    plt.ylabel("$\delta_a$ [deg]")
+    plt.xlabel("t [s]")
+    plt.savefig((namem + "Ailerondeflection"))
+    plt.legend
+    
+    plt.figure(5)
+    plt.title("Rudder Deflection")
+    plt.plot(t, (name.delta_r_stab*180/np.pi))
+    plt.ylabel("$\delta_r$ [deg]")
+    plt.xlabel("t [s]")
+    plt.savefig((namem + "Rudder Deflection"))
+    plt.legend

@@ -9,7 +9,7 @@ import control.matlab as cs
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
-namem = "Phugoid"
+namem = "kek"
 
 def Symetric(name):
     print name
@@ -84,7 +84,7 @@ def Symetric(name):
     plt.xlabel("t [s]")
     plt.plot(t, name.EAS, label="Experimental")
     plt.legend()
-    plt.savefig((namem + "Airspeed"))
+    plt.savefig((namem + " Airspeed"))
     plt.show()
 
 #    plt.subplot(222)
@@ -98,7 +98,7 @@ def Symetric(name):
     plt.xlabel("t [s]")
     plt.plot(t, name.PitchAngle, label="Experimental")
     plt.legend()
-    plt.savefig((namem + "Pitch Angle"))
+    plt.savefig((namem + " Pitch Angle"))
     plt.show()
 
     plt.figure(2)
@@ -108,7 +108,7 @@ def Symetric(name):
     plt.xlabel("t [s]")
     plt.plot(t, name.PitchRate, label="Experimental")
     plt.legend()
-    plt.savefig((namem + "PitchRate"))
+    plt.savefig((namem + " PitchRate"))
     plt.show()
     
     plt.figure(3)
@@ -116,7 +116,7 @@ def Symetric(name):
     plt.plot(t, (delev*180/np.pi))
     plt.ylabel("$\delta_e$ [deg]")
     plt.xlabel("t [s]")
-    plt.savefig((namem + "elevatordeflection"))
+    plt.savefig((namem + " elevatordeflection"))
     plt.legend
     
 

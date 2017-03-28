@@ -44,7 +44,7 @@ class Motion:
         self.AoA                                =       AoA[self.index:self.index+(mt/step)]
         self.time                               =       np.linspace(self.index,self.index+(mt/step), num=len(self.deltae), endpoint=True, retstep=False)
         self.mt                                 =       mt
-        self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]/180*np.pi
+        self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]/-180*np.pi
         self.delta_r0                           =       np.average(self.delta_r[0:25])
         self.delta_r_stab                       =       self.delta_r-self.delta_r0
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]/180*np.pi
@@ -59,8 +59,11 @@ class Motion:
         self.PitchAngle0                        =       np.average(self.PitchAngle[0:25])
         self.PitchRate                          =       pitch_rate[self.index:self.index+(mt/step)]
         self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
+        self.RollRate0                          =       np.average(self.RollRate[0:25])
         self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
+        self.RollAngle0                         =       np.average(self.RollAngle[0:25])
         self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
+        self.YawRate0                           =       np.average(self.YawRate[0:25])
         self.rho,self.muc,self.mub,self.CL,self.CD,self.CX0,self.CZ0        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight, self.height0)                              
 #symetric motions
 
@@ -77,23 +80,23 @@ Short_Period          =   Motion(short_time, short_mt)
 
 #dutch roll
 DutchRoll_time  =   3600.*1. + 60.*10. + 50.
-DutchRoll_mt    =   100
+DutchRoll_mt    =   30
 DutchRoll      =   Motion(DutchRoll_time, DutchRoll_mt)      
 
 #dutch roll YD
-DutchRollY_time =   3600.*1. + 60.*12. + 10.    
-DutchRollY_mt   =   100
+DutchRollY_time =   3600.*1. + 60.*12. + 5.    
+DutchRollY_mt   =   40
 DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
-APR_time        =   3600.*1. + 60.*19. + 35.
-APR_mt          =   15
+APR_time        =   3600.*1. + 60.*19. + 10.
+APR_mt          =   50
 AperiodicRollP  =   Motion(APR_time, APR_mt)
 
 
 #Spiral
 SPRL_time       =   3600.*1. + 60.*22
-SPRL_mt         =   150
+SPRL_mt         =   50
 Spiral         =   Motion(SPRL_time,SPRL_mt)
 
 
