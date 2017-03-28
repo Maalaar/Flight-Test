@@ -5,14 +5,23 @@ from Cit_par_SUKKELS import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
-V0 = 100.
+#V0 = 100.
 alpha0=0.
 th0=0.
 #m=60532.81018594/9.80665
-m=6500.
+#m=6500.
 #print m
-hp0=3000.
+#hp0=3000.
+V0=81.19792
+m= 64981.214/9.80665
+hp0= 16200.*0.3048
+
+
+
 rho,muc,mub,CL,CD,CX0,CZ0 = kutmaarten(V0,alpha0,th0,m,hp0)
+
+
+
 
 
 #V0=81.227
