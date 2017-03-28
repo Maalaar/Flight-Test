@@ -45,7 +45,11 @@ class Motion:
         self.time                               =       np.linspace(self.index,self.index+(mt/step), num=len(self.deltae), endpoint=True, retstep=False)
         self.mt                                 =       mt
         self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]/180*np.pi
+        self.delta_r0                           =       np.average(self.delta_r[0:25])
+        self.delta_r_stab                       =       self.delta_r-self.delta_r0
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]/180*np.pi
+        self.delta_a0                           =       np.average(self.delta_a[0:25])
+        self.delta_a_stab                       =       self.delta_a-self.delta_a0
         self.weightf                            =       Wf[self.index:self.index+(mt/step)]
         self.weightf0                           =       [np.average(self.weightf[0:25])]
         self.weight                             =       np.subtract(66183,self.weightf0)[0]

@@ -44,7 +44,7 @@ def Symetric(name):
     sys = cs.ss(A, B, C, D)
 
     #input of control system
-    delev = name.deltae  #input of elevator deflection
+    delev = name.deltae_stab  #input of elevator deflection
     t = np.linspace(0,len(name.deltae)*0.1, num=len(name.deltae), endpoint=True, retstep=False) #time step and range  
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
