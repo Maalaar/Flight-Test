@@ -71,11 +71,14 @@ def Asymetric(name):
     
     y2 += 0
     y3 += 0
-    y4 += 0
     
-    y2 = y2*(180/np.pi)
-    y3 = y3*(180/np.pi)
-    y4 = y4*(180/np.pi)
+    
+    y2 *= (180/np.pi)
+    y3 *= (180/np.pi)
+    y4 *= (180/np.pi)
+    y2 += name.RollAngle0
+    y3 += name.RollRate0
+    y4 += name.YawRate0
     
     #plotting the total grpahs
     plt.figure(0)

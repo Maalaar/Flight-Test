@@ -59,8 +59,11 @@ class Motion:
         self.PitchAngle0                        =       np.average(self.PitchAngle[0:25])
         self.PitchRate                          =       pitch_rate[self.index:self.index+(mt/step)]
         self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
+        self.RollRate0                          =       np.average(self.RollRate[0:25])
         self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
+        self.RollAngle0                         =       np.average(self.RollAngle[0:25])
         self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
+        self.YawRate0                           =       np.average(self.YawRate[0:25])
         self.rho,self.muc,self.mub,self.CL,self.CD,self.CX0,self.CZ0        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight, self.height0)                              
 #symetric motions
 
@@ -87,7 +90,7 @@ DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
 APR_time        =   3600.*1. + 60.*19. + 10.
-APR_mt          =   15
+APR_mt          =   50
 AperiodicRollP  =   Motion(APR_time, APR_mt)
 
 
