@@ -1,9 +1,6 @@
 import numpy as np
 # Citation 550 - Linear simulation
 
-<<<<<<< HEAD
-def kutmaarten(V0,alpha0,th0,m):
-=======
 # xcg = 0.25 * c
 
 # Stationary flight condition
@@ -21,7 +18,6 @@ def kutmaarten(V0,alpha0,th0,m):
 
 
 def kutmaarten(V0,alpha0,th0,m,hp0):
->>>>>>> 512d4c1dd8ac5693d2ba02798d571a2a4018019a
 
 
     # aerodynamic properties
@@ -121,9 +117,4 @@ def kutmaarten(V0,alpha0,th0,m,hp0):
     Cnda   =  -0.0120
     Cndr   =  -0.0939
 
-<<<<<<< HEAD
-    return e,CD0,CLa,Cma,Cmde,S,Sh,Sh_s,lh,c,lh_c,b,bh,A,Ah,Vh_v,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr
-=======
     return e,CD0,CLa,Cma,Cmde,S,Sh,Sh_S,lh,c,lh_c,b,bh,A,Ah,Vh_V,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr
-
->>>>>>> 512d4c1dd8ac5693d2ba02798d571a2a4018019a

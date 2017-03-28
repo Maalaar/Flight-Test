@@ -69,19 +69,19 @@ def cog2 (W_f):
     return (W, x_cg)
 
 
-l3=[]
-l4=[]
-for i in range(4000):
-    l1=[]
-    l1.append(float(i))
-    l3.append(i)
-    jaja = cog([float(i)])
+#l3=[]
+#l4=[]
+#for i in range(4000):
+ #   l1=[]
+#    l1.append(float(i))
+ #   l3.append(i)
+ #   jaja = cog([float(i)])
     
-    l4.append(jaja[1])
+ #   l4.append(jaja[1])
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
-plt.plot(l3,l4)
-plt.show()
+#plt.plot(l3,l4)
+#plt.show()
 
     
