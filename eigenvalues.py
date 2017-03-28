@@ -131,39 +131,39 @@ damping5=abs(re(lambda7)/((re(lambda7)**2+im(lambda7)**2))**0.5)
 print "SYMMETRIC"
 print " "
 print "Short Period"
-print "Period            ",round(P1,2),"  s"
-print "Half time         ",round(T1,2),"  s"
-print "Frequency         ",round(omega1,2),"  rad/s"
-print "Damping           ",round(damping1,2)
+print "Period            ",round(P1,4),"  s"
+print "Half time         ",round(T1,4),"  s"
+print "Frequency         ",round(omega1,4),"  rad/s"
+print "Damping           ",round(damping1,4)
 print " "
 print "Fugoid"
-print "Period            ",round(P2,2),"  s"
-print "Half time         ",round(T2,2)," s"
-print "Frequency         ",round(omega2,2),"   rad/s"
-print "Damping           ",round(damping2,2)
+print "Period            ",round(P2,4),"  s"
+print "Half time         ",round(T2,4)," s"
+print "Frequency         ",round(omega2,4),"   rad/s"
+print "Damping           ",round(damping2,4)
 print " "
 print "ASYMMETRIC"
 print " "
 print "First Aperiodic"
-print "Half time         ",round(T3,2),"  s"
+print "Half time         ",round(T3,4),"  s"
 print " "
 print "Second Aperiodic"
-print "Half time         ",round(T4,2),"s"
+print "Half time         ",round(T4,4),"s"
 print " "
 print "Periodic          "
-print "Period            ",round(P5,2),"  s"
-print "Half time         ",round(T5,2),"   s"
-print "Frequency         ",round(omega5,2),"  rad/s"
-print "Damping           ",round(damping5,2)
+print "Period            ",round(P5,4),"  s"
+print "Half time         ",round(T5,4),"   s"
+print "Frequency         ",round(omega5,4),"  rad/s"
+print "Damping           ",round(damping5,4)
 print " "
 print " "
 print "EIGENVALUES"
-print "Short:            ",round(re(lambda1),4),"±",abs(round(im(lambda1),4)),"j"
-print "Fugoid:           ",round(re(lambda3),4),"±",abs(round(im(lambda3),4)),"j"
+print "Short:            ",round(re(lambda1),6),"±",abs(round(im(lambda1),6)),"j"
+print "Fugoid:           ",round(re(lambda3),6),"±",abs(round(im(lambda3),6)),"j"
 print " "
-print "First Aperiodic:  ",round(re(lambda5),4),"±",abs(round(im(lambda5),4)),"j"
-print "Second Aperiodic: ",round(re(lambda6),4),"±",abs(round(im(lambda6),4)),"j"
-print "Periodic:         ",round(re(lambda7),4),"±",abs(round(im(lambda7),4)),"j"
+print "First Aperiodic:  ",round(re(lambda5),6),"±",abs(round(im(lambda5),6)),"j"
+print "Second Aperiodic: ",round(re(lambda6),6),"±",abs(round(im(lambda6),6)),"j"
+print "Periodic:         ",round(re(lambda7),6),"±",abs(round(im(lambda7),6)),"j"
 
 
 
@@ -174,30 +174,69 @@ print "Symmetrical"
 A = 2*muc*KY2*(2*muc-CZadot)
 B = -2*muc*KY2*CZa - (2*muc+CZq)*Cmadot - (2*muc-CZadot)*Cmq
 C = CZa * Cmq - (2*muc+CZq)*Cma
+re=-B/(2*A)
+im = abs((4*A*C-B**2)**0.5/(2*A))
+print "Short Eigenvalue: ",re , "±",im ,"j"
 
-print "Short Eigenvalue: ",-B/(2*A) , "±", (4*A*C-B**2)**0.5/(2*A),"j"
+
 print "Omega0: ", V/c*(C/A)**0.5,"rad/s"
 print "Damping: ", abs(-B/(2*(A*C)**0.5))
+print "Omegan: ", V/c*(C/A)**0.5* (1-(abs(-B/(2*(A*C)**0.5)))**2)**0.5
 print "Period: ", 2*np.pi/((V/c*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+print "T1/2", -np.log(2)/re*c/V,"s"
 A = 2*muc*(CZa*Cmq-2*muc*Cma)
 B = 2*muc*(CXu*Cma- Cmu*CXa)+Cmq*(CZu*CXa - CXu*CZa)
 C = CZ0*(Cmu*CZa-CZu*Cma)
 
-print "Phugoid Eigenvalue: ",-B/(2*A) , "±", abs((4*A*C-B**2)**0.5/(2*A)),"j"
+re=-B/(2*A)
+im = abs((4*A*C-B**2)**0.5/(2*A))
+
+print "Phugoid Eigenvalue: ",re , "±", im,"j"
 print "Omega0: ", V/c*(C/A)**0.5,"rad/s"
+print "Omegan: ", V/c*(C/A)**0.5* (1-(abs(-B/(2*(A*C)**0.5)))**2)**0.5
 print "Damping: ", abs(-B/(2*(A*C)**0.5))
 print "Period: ", 2*np.pi/((V/c*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+print "T1/2", -np.log(2)/re*c/V,"s"
 
 print " "
 print "Asymmetrical"
 print "Eigen1",Clp/(4*mub*KX2)
 
+
+
+
+
+
+
+
+
+re = Clp/(4*mub*KX2)
+print "T1/2", -np.log(2)/re*b/V,"s"
+
+
+
+
+print "Eigen4",(2*CL*(Clb*Cnr-Cnb*Clr))    /     (  Clp*(CYb*Cnr+4*mub*Cnb) -  Cnp*(CYb*Clr+4*mub*Clb)  )
+re = (2*CL*(Clb*Cnr-Cnb*Clr))    /     (  Clp*(CYb*Cnr+4*mub*Cnb) -  Cnp*(CYb*Clr+4*mub*Clb)  )
+print "T1/2", -np.log(2)/re*b/V,"s"
+
+
+
+
 A=8*mub**2*KZ2
 B=-2*mub*(Cnr+2*KZ2*CYb)
 C=4*mub*Cnb +CYb*Cnr
 
-print "Omega0: ", V/b*(C/A)**0.5
-print "Damping: ",abs(-B/(2*(A*C)**0.5))
-print "Period: ",2*np.pi/((V/b*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+re=-B/(2*A)
+im = abs((4*A*C-B**2)**0.5/(2*A))
 
-print "Eigen4",(2*CL*(Clb*Cnr-Cnb*Clr))    /     (  Clp*(CYb*Cnr+4*mub*Cnb) -  Cnp*(CYb*Clr+4*mub*Clb)  )
+print "Dutch Roll Eigenvalue: ",re , "±", im,"j"
+print "Omega0: ", V/b*(C/A)**0.5,"rad/s"
+print "Omegan: ", V/b*(C/A)**0.5* (1-(abs(-B/(2*(A*C)**0.5)))**2)**0.5
+print "Damping: ", abs(-B/(2*(A*C)**0.5))
+print "Period: ", 2*np.pi/((V/b*(C/A)**0.5)*(1-(-B/(2*(A*C)**0.5))**2)**0.5)
+print "T1/2", -np.log(2)/re*b/V,"s"
+
+
+
+
