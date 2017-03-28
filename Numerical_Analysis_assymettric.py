@@ -9,7 +9,7 @@ import control.matlab as cs
 from Data_cruncher import *
 import matplotlib.pyplot as plt
 
-namem="Aperiodic Roll"
+namem="kek"
 
 def Asymetric(name):
     
