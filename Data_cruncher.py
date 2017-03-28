@@ -20,7 +20,7 @@ delta_a     = np.genfromtxt('data/delta_a[deg].txt', delimiter ='/n')           
 h_p         = np.genfromtxt('data/h_p[ft].txt', delimiter ='/n')                #ft
 TAT         = np.genfromtxt('data/TAT[degc].txt', delimiter ='/n')              #degrees celsius
 roll_angle  = np.genfromtxt('data/roll_angle[deg].txt', delimiter ='/n')           #deg
-
+pitch_rate  = np.genfromtxt('data/pitch_rate[degpers].txt', delimiter ='/n')      #deg/s
 #Total fuel usage
 Wf = Wfl + Wfr 
 
@@ -31,7 +31,7 @@ step = 0.1
 
 class Motion:
     def __init__(self,stime,mt):
-        self.index                              =       np.where(time==(stime-20))[0][0]
+        self.index                              =       np.where(time==(stime))[0][0]
         self.deltae                             =       deltae[self.index:self.index+(mt/step)]/180*np.pi
         self.deltae0                            =       np.average(self.deltae[0:25])
         self.deltae_stab                        =       self.deltae-self.deltae0
@@ -45,7 +45,11 @@ class Motion:
         self.time                               =       np.linspace(self.index,self.index+(mt/step), num=len(self.deltae), endpoint=True, retstep=False)
         self.mt                                 =       mt
         self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]/180*np.pi
+        self.delta_r0                           =       np.average(self.delta_r[0:25])
+        self.delta_r_stab                       =       self.delta_r-self.delta_r0
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]/180*np.pi
+        self.delta_a0                           =       np.average(self.delta_a[0:25])
+        self.delta_a_stab                       =       self.delta_a-self.delta_a0
         self.weightf                            =       Wf[self.index:self.index+(mt/step)]
         self.weightf0                           =       [np.average(self.weightf[0:25])]
         self.weight                             =       np.subtract(66183,self.weightf0)[0]
@@ -53,6 +57,7 @@ class Motion:
         self.AoA0                               =       np.average(self.AoA[0:25])
         self.PitchAngle                         =       pitch_angle[self.index:self.index+(mt/step)]
         self.PitchAngle0                        =       np.average(self.PitchAngle[0:25])
+        self.PitchRate                          =       pitch_rate[self.index:self.index+(mt/step)]
         self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
         self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
         self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
@@ -62,32 +67,38 @@ class Motion:
 #phugoid motion
 phugoid_time    =   3600.*1. + 60.*15. + 40.
 phugoid_mt      =   200
-phugoidP        =   Motion(phugoid_time,phugoid_mt)
+Phugoid        =   Motion(phugoid_time,phugoid_mt)
 
 #short period
-short_time      =   3600.*1. + 60.*14. + 30.
-short_mt        =   200
-shortP          =   Motion(short_time, short_mt)
+short_time      =   3600.*1. + 60.*14. + 33.
+short_mt        =   14
+Short_Period          =   Motion(short_time, short_mt)
 #       assymetric motion
 
 #dutch roll
 DutchRoll_time  =   3600.*1. + 60.*10. + 50.
 DutchRoll_mt    =   100
-DutchRollP      =   Motion(DutchRoll_time, DutchRoll_mt)      
+DutchRoll      =   Motion(DutchRoll_time, DutchRoll_mt)      
 
 #dutch roll YD
 DutchRollY_time =   3600.*1. + 60.*12. + 10.    
 DutchRollY_mt   =   100
-DutchRollYP    =   Motion(DutchRollY_time, DutchRollY_mt)
+DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
+<<<<<<< HEAD
 APR_time        =   3600.*1. + 60.*19. + 35.
 APR_mt          =   15
 AperiodicRollP  =   Motion(APR_time, APR_mt)
+=======
+APR_time        =   3600.*1. + 60.*19. + 10.
+APR_mt          =   100
+AperiodicRoll  =   Motion(APR_time, APR_mt)
+>>>>>>> add08e3b9f48cc34c6ae840c99475ba672e6f7ee
 
 #Spiral
 SPRL_time       =   3600.*1. + 60.*22
 SPRL_mt         =   150
-SpiralP         =   Motion(SPRL_time,SPRL_mt)
+Spiral         =   Motion(SPRL_time,SPRL_mt)
 
 

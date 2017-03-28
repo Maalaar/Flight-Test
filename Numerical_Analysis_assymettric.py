@@ -44,9 +44,9 @@ def Asymetric(name):
     D = np.matrix([[0,0], [0,0], [0,0], [0,0]])
 
     sys = cs.ss(A, B, C, D)
-
+    print sys
     #input of control system
-    delev = np.column_stack((name.delta_a,name.delta_r))
+    delev = np.column_stack((name.delta_a_stab,name.delta_r_stab))
     t = np.linspace(0,len(name.delta_r)*0.1, num=len(name.delta_r), endpoint=True, retstep=False) #time step and range 
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dynamic stability

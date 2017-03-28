@@ -9,8 +9,10 @@ import control.matlab as cs
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
+namem = "Short Period"
+
 def Symetric(name):
-    
+    print name
     # Assigning coefficients to matrices
     C1 = np.matrix([[-2*name.muc*(c/(name.V0)), 0, 0, 0],
                     [0, (CZadot-2*name.muc)*(c/name.V0), 0, 0],
@@ -44,7 +46,7 @@ def Symetric(name):
     sys = cs.ss(A, B, C, D)
 
     #input of control system
-    delev = name.deltae  #input of elevator deflection
+    delev = name.deltae_stab  #input of elevator deflection
     t = np.linspace(0,len(name.deltae)*0.1, num=len(name.deltae), endpoint=True, retstep=False) #time step and range  
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
@@ -75,25 +77,46 @@ def Symetric(name):
 
 
 #    plotting the total grpahs
-    plt.subplot(221)
-    plt.title('u')
-    plt.plot(t, y1)
-    plt.plot(t, name.EAS)
+    plt.figure(0)
+    plt.title('Airspeed ')
+    plt.plot(t, y1, label="Numerical")
+    plt.ylabel("V [m/s]")
+    plt.xlabel("t [s]")
+    plt.plot(t, name.EAS, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "Airspeed"))
+    plt.show()
 
-    plt.subplot(222)
-    plt.title('alpha')
-    plt.plot(t, y2)
-    plt.plot(t, name.AoA)
+#    plt.subplot(222)
+#    plt.title('alpha')
+#    plt.plot(t, y2)
+#    plt.plot(t, name.AoA)
+    plt.figure(1)
+    plt.title('Pitch angle')
+    plt.plot(t, y3, label="Numerical")
+    plt.ylabel(r'$\theta$ [deg]')
+    plt.xlabel("t [s]")
+    plt.plot(t, name.PitchAngle, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "Pitch Angle"))
+    plt.show()
 
-    plt.subplot(223)
-    plt.title('Theta')
-    plt.plot(t, y3)
-    plt.plot(t, name.PitchAngle)
-
-
-    plt.subplot(224)
-    plt.title('q')
-    plt.plot(t, y4)
+    plt.figure(2)
+    plt.title('Pitch rate')
+    plt.plot(t, y4, label="Numerical")
+    plt.ylabel(r'$q$ [deg/s]')
+    plt.xlabel("t [s]")
+    plt.plot(t, name.PitchRate, label="Experimental")
+    plt.legend()
+    plt.savefig((namem + "PitchRate"))
+    plt.show()
+    
+    plt.figure(3)
+    plt.title("Elevator deflection")
+    plt.plot(t, (delev*180/np.pi))
+    plt.ylabel("$\delta_e$ [deg]")
+    plt.xlabel("t [s]")
+    plt.legend
+    
 
     
-    plt.show()
