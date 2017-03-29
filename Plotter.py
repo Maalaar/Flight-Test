@@ -51,7 +51,7 @@ def plot(name):
     plt.ylabel("p [deg/s]")
     plt.xlabel("t [s]")
     plt.plot(t1, name.RollRate, label="Experimental", color="green")
-    plt.legend(loc=3)
+    plt.legend(loc=2)
     plt.savefig((namem + "RollRate"))
     plt.show()
 
@@ -70,7 +70,7 @@ def plot(name):
     plt.show()   
     
     plt.figure(4)
-    plt.gca().set_ylim([-6,6])
+    plt.gca().set_ylim([-2,2])
 #    plt.gca().set_xlim([0,140])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
@@ -82,7 +82,7 @@ def plot(name):
 
     
     plt.figure(5)
-    plt.gca().set_ylim([-6,6])
+    plt.gca().set_ylim([-2,2])
 #    plt.gca().set_xlim([0,140])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
