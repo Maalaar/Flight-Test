@@ -12,9 +12,9 @@ th0=0.
 #m=6500.
 #print m
 #hp0=3000.
-V0=81.19792
-m= 64981.214/9.80665
-hp0= 16200.*0.3048
+V0=100.
+m= 6500.
+hp0= 3000.
 
 
 
@@ -56,9 +56,9 @@ def eigenvaluessym(Cxu,muc,Cxalpha,Cz0,Czu,Czalpha,Czalphadot,Cx0,Czq,Cmu,Cmalph
     block2= - A2* (A5*(A11*A16-A12*A15)-A7*(A9*A16-A12*A13)+A8*(A9*A15-A11*A13))
     block3= A3* ( A5*(A10*A16-A12*A14)-A6*(A9*A16-A12*A13)+A8*(A9*A14-A10*A13))
     block4= -A4*(A5*(A10*A15-A11*A14)-A6*(A9*A15-A11*A13)+A7*(A9*A14-A10*A13))
-
+ 
     return solve(Eq(block1+block2+block3+block4, 0), x)
-
+    
 
 def eigenvaluesasym(Cybeta,Cybetadot,mub,CL,Cyp,Cyr,Clbeta,Clp,Kx2,Clr,Kxz,Cnbeta,Cnbetadot,Cnp,Cnr,Kz2): 
     
