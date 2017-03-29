@@ -1,6 +1,6 @@
 import numpy as np
 from Eq_airspeed import *
-from Cit_par_Corne import *
+from Cit_par_SUKKELS import *
 import matplotlib.pyplot as plt
 
 #importing all measured data from text files into numpy arrays
