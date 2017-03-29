@@ -1,0 +1,20 @@
+short 		-0.290267	+-	0.116872      	unsimplified
+short		-0.289758	+-	0.117555	simplified
+
+phugoid		-0.000165	+-	0.005659	unsimplified
+phugoid 	-0.0003204	+-	0.005522	simpified
+
+aperiodic roll	-6.899					unsimplified
+aperiodic roll	-7.029					simpified
+
+
+spiral		0.00247					unsimplified
+spiral		0.0020579				simplified
+
+dutch roll	-0.642383	+-	0.993277	unsimplified
+dutch roll	-0.59850	+-	1.04782266754	simplified
+
+
+
+
+

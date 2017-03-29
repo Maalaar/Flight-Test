@@ -1,18 +1,33 @@
 import numpy as np
 from sympy import *
-from Cit_par_OPTYFENMAARTEN import *
+from Cit_par_SUKKELS import *
 #from alltheconstantsjohan import *
 import matplotlib.pyplot as plt
 x, y = symbols('x y')
 
-V0 = 80.8
+#V0 = 100.
 alpha0=0.
 th0=0.
 #m=60532.81018594/9.80665
-m=64917./9.80665
+#m=6500.
 #print m
-hp0=15900.*0.3048
-e,CD0,CLa,Cma,Cmde,S,Sh,Sh_S,lh,c,lh_c,b,bh,A,Ah,Vh_V,ih,rho0,lambda1,Temp0,R,g,rho,W,muc,mub,KX2,KZ2,KXZ,KY2,Cmac,CNwa,CNha,depsda,CL,CD,CX0,CXu,CXa,CXadot,CXq,CXde,CZ0,CZu,CZa,CZadot,CZq,CZde,Cmu,Cmadot,Cmq,CYb,CYbdot,CYp,CYr,CYda,CYdr,Clb,Clp,Clr,Clda,Cldr,Cnb,Cnbdot,Cnp,Cnr,Cnda,Cndr = kutmaarten(V0,alpha0,th0,m,hp0)
+#hp0=3000.
+V0=100.
+m= 6500.
+hp0= 3000.
+
+
+
+rho,muc,mub,CL,CD,CX0,CZ0 = kutmaarten(V0,alpha0,th0,m,hp0)
+
+
+
+
+
+#V0=81.227
+#m=64985.99/9.80665
+#hp0=16200.*0.3048
+
 
 #print CXu
 
@@ -41,9 +56,9 @@ def eigenvaluessym(Cxu,muc,Cxalpha,Cz0,Czu,Czalpha,Czalphadot,Cx0,Czq,Cmu,Cmalph
     block2= - A2* (A5*(A11*A16-A12*A15)-A7*(A9*A16-A12*A13)+A8*(A9*A15-A11*A13))
     block3= A3* ( A5*(A10*A16-A12*A14)-A6*(A9*A16-A12*A13)+A8*(A9*A14-A10*A13))
     block4= -A4*(A5*(A10*A15-A11*A14)-A6*(A9*A15-A11*A13)+A7*(A9*A14-A10*A13))
-
+ 
     return solve(Eq(block1+block2+block3+block4, 0), x)
-
+    
 
 def eigenvaluesasym(Cybeta,Cybetadot,mub,CL,Cyp,Cyr,Clbeta,Clp,Kx2,Clr,Kxz,Cnbeta,Cnbetadot,Cnp,Cnr,Kz2): 
     
@@ -114,8 +129,7 @@ damping1=abs(re(lambda1)/((re(lambda1)**2+im(lambda1)**2))**0.5)
 damping2=abs(re(lambda3)/((re(lambda3)**2+im(lambda3)**2))**0.5)
 
 
-print "logical", np.pi*2*re(lambda1)/im(lambda1)
-print "logical", np.pi*2*re(lambda3)/im(lambda3)
+
 ###############ASYMMETRIC
 
 lambda5=Eigen2[0]
