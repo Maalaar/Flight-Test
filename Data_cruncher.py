@@ -1,6 +1,6 @@
 import numpy as np
 from Eq_airspeed import *
-from Cit_par_SUKKELS import *
+from Cit_par_Corne import *
 import matplotlib.pyplot as plt
 
 #importing all measured data from text files into numpy arrays
@@ -33,10 +33,10 @@ class Motion:
     def __init__(self,stime,mt):
         self.index                              =       np.where(time==(stime))[0][0]
         self.deltae                             =       deltae[self.index:self.index+(mt/step)]/180*np.pi
-        self.deltae0                            =       np.average(self.deltae[0:25])
+        self.deltae0                            =       np.average(self.deltae[0:5])
         self.deltae_stab                        =       self.deltae-self.deltae0
         self.height                             =       h_p[self.index:self.index+(mt/step)]
-        self.height0                            =       np.average(self.height[0:25])
+        self.height0                            =       np.average(self.height[0:5])
         self.TAT                                =       TAT[self.index:self.index+(mt/step)]
         self.IASkts                             =       v_ias[self.index:self.index+(mt/step)]
         self.EAS, self.TAS, self.rho, self.M    =       equivalentspeed(self.height, self.TAT, self.IASkts)
@@ -45,25 +45,25 @@ class Motion:
         self.time                               =       np.linspace(self.index,self.index+(mt/step), num=len(self.deltae), endpoint=True, retstep=False)
         self.mt                                 =       mt
         self.delta_r                            =       delta_r[self.index:self.index+(mt/step)]/-180*np.pi
-        self.delta_r0                           =       np.average(self.delta_r[0:25])
+        self.delta_r0                           =       np.average(self.delta_r[0:5])
         self.delta_r_stab                       =       self.delta_r-self.delta_r0
         self.delta_a                            =       delta_a[self.index:self.index+(mt/step)]/180*np.pi
-        self.delta_a0                           =       np.average(self.delta_a[0:25])
+        self.delta_a0                           =       np.average(self.delta_a[0:5])
         self.delta_a_stab                       =       self.delta_a-self.delta_a0
         self.weightf                            =       Wf[self.index:self.index+(mt/step)]
-        self.weightf0                           =       [np.average(self.weightf[0:25])]
+        self.weightf0                           =       [np.average(self.weightf[0:5])]
         self.weight                             =       np.subtract(66183,self.weightf0)[0]
-        self.V0                                 =       np.average(self.EAS[0:25])
-        self.AoA0                               =       np.average(self.AoA[0:25])
+        self.V0                                 =       np.average(self.EAS[0:5])
+        self.AoA0                               =       np.average(self.AoA[0:5])
         self.PitchAngle                         =       pitch_angle[self.index:self.index+(mt/step)]
-        self.PitchAngle0                        =       np.average(self.PitchAngle[0:25])
+        self.PitchAngle0                        =       np.average(self.PitchAngle[0:5])
         self.PitchRate                          =       pitch_rate[self.index:self.index+(mt/step)]
         self.RollRate                           =       roll_rate[self.index:self.index+(mt/step)]
-        self.RollRate0                          =       np.average(self.RollRate[0:25])
+        self.RollRate0                          =       np.average(self.RollRate[0:5])
         self.RollAngle                          =       roll_angle[self.index:self.index+(mt/step)]
-        self.RollAngle0                         =       np.average(self.RollAngle[0:25])
+        self.RollAngle0                         =       np.average(self.RollAngle[0:5])
         self.YawRate                            =       yaw_rate[self.index:self.index+(mt/step)]
-        self.YawRate0                           =       np.average(self.YawRate[0:25])
+        self.YawRate0                           =       np.average(self.YawRate[0:5])
         self.rho,self.muc,self.mub,self.CL,self.CD,self.CX0,self.CZ0        =       kutmaarten(self.V0, self.AoA0, self.PitchAngle0, self.weight, self.height0)                              
 #symetric motions
 
@@ -85,7 +85,7 @@ DutchRoll      =   Motion(DutchRoll_time, DutchRoll_mt)
 
 #dutch roll YD
 DutchRollY_time =   3600.*1. + 60.*12. + 5.    
-DutchRollY_mt   =   40
+DutchRollY_mt   =   12
 DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll

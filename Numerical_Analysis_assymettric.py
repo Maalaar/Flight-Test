@@ -69,9 +69,6 @@ def Asymetric(name):
     y3 = np.transpose(y3)
     y4 = np.transpose(y4)
     
-    y2 += 0
-    y3 += 0
-    
     
     y2 *= (180/np.pi)
     y3 *= (180/np.pi)
@@ -80,13 +77,13 @@ def Asymetric(name):
     y3 += name.RollRate0
     y4 += name.YawRate0
     
-    #plotting the total grpahs
+#    plotting the total grpahs
     plt.figure(0)
     plt.title('Angle of Sideslip ')
     plt.plot(t, y1, label="Numerical")
     plt.ylabel(r"$\beta$ [deg]")
     plt.xlabel("t [s]")
-#    plt.plot(t, name.EAS, label="Experimental")
+    plt.plot(t, name.EAS, label="Experimental")
     plt.legend()
     plt.savefig((namem + "Angle of Sideslip"))
     plt.show()
