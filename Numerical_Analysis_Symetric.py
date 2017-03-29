@@ -81,7 +81,7 @@ def Symetric(name):
 #    plt.gca().set_ylim([-1,0])
 #    plt.gca().set_xlim([0,140])    
     plt.title('Airspeed ')
-    plt.plot(t, y1, label="Numerical  Optimized", color="blue")
+    plt.plot(t, y1, label="Numerical Optimized", color="blue")
     plt.ylabel("V [m/s]")
     plt.xlabel("t [s]")
 #    plt.plot(t, name.EAS, label="Experimental", color='green')
@@ -100,11 +100,11 @@ def Symetric(name):
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch angle')
-    plt.plot(t, y3, label="Numerical  Optimized", color="blue")
+    plt.plot(t, y3, label="Numerical Optimized", color="blue")
     plt.ylabel(r'$\theta$ [deg]')
     plt.xlabel("t [s]")
 #    plt.plot(t, name.PitchAngle, label="Experimental", color='green')
-    plt.legend()
+    plt.legend(loc=2)
     plt.savefig((namem + " Pitch Angle"))
     plt.show()
 
@@ -114,7 +114,7 @@ def Symetric(name):
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch rate')
-    plt.plot(t, y4, label="Numerical  Optimized", color="blue")
+    plt.plot(t, y4, label="Numerical Optimized", color="blue")
     plt.ylabel(r'$q$ [deg/s]')
     plt.xlabel("t [s]")
 #    plt.plot(t, name.PitchRate, label="Experimental", color='green')
@@ -132,7 +132,6 @@ def Symetric(name):
 #    plt.ylabel("$\delta_e$ [deg]")
 #    plt.xlabel("t [s]")
 #    plt.savefig((namem + " elevatordeflection"))
-#    plt.legend
-    
+#    
 
     
