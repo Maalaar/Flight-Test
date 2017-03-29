@@ -90,7 +90,7 @@ DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
 APR_time        =   3600.*1. + 60.*19. + 10.
-APR_mt          =   50
+APR_mt          =   25
 AperiodicRollP  =   Motion(APR_time, APR_mt)
 
 

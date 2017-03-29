@@ -9,7 +9,7 @@ import control.matlab as cs
 from Data_cruncher import *
 import matplotlib.pyplot as plt
 
-namem="kek"
+#namem= "Dutch Roll + Yaw [Ultimate Final Johan is een natte pannekoek]"
 
 def Asymetric(name):
     
@@ -77,59 +77,83 @@ def Asymetric(name):
     y3 += name.RollRate0
     y4 += name.YawRate0
     
-#    plotting the total grpahs
-    plt.figure(0)
-    plt.title('Angle of Sideslip ')
-    plt.plot(t, y1, label="Numerical")
-    plt.ylabel(r"$\beta$ [deg]")
-    plt.xlabel("t [s]")
-    plt.plot(t, name.EAS, label="Experimental")
-    plt.legend()
-    plt.savefig((namem + "Angle of Sideslip"))
-    plt.show()
+    return y1,y2,y3,y4,t
     
-    plt.figure(1)
-    plt.title('Roll Angle ')
-    plt.plot(t, y2, label="Numerical")
-    plt.ylabel("$\phi$ [deg]")
-    plt.xlabel("t [s]")
-    plt.plot(t, name.RollAngle, label="Experimental")
-    plt.legend()
-    plt.savefig((namem + "RollAngle"))
-    plt.show()
-    
-    plt.figure(2)
-    plt.title('Roll Rate')
-    plt.plot(t, y3, label="Numerical")
-    plt.ylabel("p [deg/s]")
-    plt.xlabel("t [s]")
-    plt.plot(t, name.RollRate, label="Experimental")
-    plt.legend()
-    plt.savefig((namem + "RollRate"))
-    plt.show()
-
-    plt.figure(3)
-    plt.title('Yaw Rate')
-    plt.plot(t, y4, label="Numerical")
-    plt.ylabel("r [deg/s]")
-    plt.xlabel("t [s]")
-    plt.plot(t, name.YawRate, label="Experimental")
-    plt.legend()
-    plt.savefig((namem + "YawRate"))
-    plt.show()   
-    
-    plt.figure(4)
-    plt.title("Aileron Deflection")
-    plt.plot(t, (name.delta_a_stab*180/np.pi))
-    plt.ylabel("$\delta_a$ [deg]")
-    plt.xlabel("t [s]")
-    plt.savefig((namem + "Ailerondeflection"))
-    plt.legend
-    
-    plt.figure(5)
-    plt.title("Rudder Deflection")
-    plt.plot(t, (name.delta_r_stab*180/np.pi))
-    plt.ylabel("$\delta_r$ [deg]")
-    plt.xlabel("t [s]")
-    plt.savefig((namem + "Rudder Deflection"))
-    plt.legend
+##    plotting the total grpahs
+#    plt.figure(0)
+##    plt.gca().set_ylim([-1,0])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)    
+#    plt.title('Angle of Sideslip ')
+#    plt.plot(t, y1, label="Numerical Optimized", color="blue")
+#    plt.ylabel(r"$\beta$ [deg]")
+#    plt.xlabel("t [s]")
+#    plt.legend(loc=2)
+#    plt.savefig((namem + "Angle of Sideslip"))
+#    plt.show()
+#    
+#    plt.figure(1)
+##    plt.gca().set_ylim([-1,0])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+#    plt.title('Roll Angle ')
+#    plt.plot(t, y2, label="Numerical Optimized", color="blue")
+#    plt.ylabel("$\phi$ [deg]")
+#    plt.xlabel("t [s]")
+#    plt.plot(t, name.RollAngle, label="Experimental", color="green")
+#    plt.legend(loc=2)
+#    plt.savefig((namem + "RollAngle"))
+#    plt.show()
+#    
+#    plt.figure(2)
+##    plt.gca().set_ylim([-1,0])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+#    plt.title('Roll Rate')
+#    plt.plot(t, y3, label="Numerical Optimized", color="blue")
+#    plt.ylabel("p [deg/s]")
+#    plt.xlabel("t [s]")
+#    plt.plot(t, name.RollRate, label="Experimental", color="green")
+#    plt.legend(loc=2)
+#    plt.savefig((namem + "RollRate"))
+#    plt.show()
+#
+#    plt.figure(3)
+##    plt.gca().set_ylim([-1,0])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+#    plt.title('Yaw Rate')
+#    plt.plot(t, y4, label="Numerical Optimized", color="blue")
+#    plt.ylabel("r [deg/s]")
+#    plt.xlabel("t [s]")
+#    plt.plot(t, name.YawRate, label="Experimental", color="green")
+#    plt.legend(loc=2)
+#    plt.savefig((namem + "YawRate"))
+#    plt.show()   
+#    
+#    plt.figure(4)
+#    plt.gca().set_ylim([-6,6])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+#    plt.title("Aileron Deflection")
+#    plt.plot(t, (name.delta_a_stab*180/np.pi), color="green")
+#    plt.ylabel("$\delta_a$ [deg]")
+#    plt.xlabel("t [s]")
+#    plt.savefig((namem + "Ailerondeflection"))
+#
+#    
+#    plt.figure(5)
+#    plt.gca().set_ylim([-6,6])
+##    plt.gca().set_xlim([0,140])    
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+#    plt.title("Rudder Deflection")
+#    plt.plot(t, (name.delta_r_stab*180/np.pi), color="green")
+#    plt.ylabel("$\delta_r$ [deg]")
+#    plt.xlabel("t [s]")
+#    plt.savefig((namem + "Rudder Deflection"))
