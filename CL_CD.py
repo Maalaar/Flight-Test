@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Mar 09 15:07:22 2017
-
-@author: Bart
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
