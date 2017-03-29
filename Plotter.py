@@ -7,7 +7,7 @@ Created on Wed Mar 29 10:45:10 2017
 
 from Numerical_Analysis_assymettric import *
 
-namem= "Spiral [Ultimate Final Johan is een natte pannekoek]"
+namem= "AperiodicRollP [Ultimate Final Johan is een natte pannekoek]"
 
 def plot(name):
 
@@ -51,7 +51,7 @@ def plot(name):
     plt.ylabel("p [deg/s]")
     plt.xlabel("t [s]")
     plt.plot(t1, name.RollRate, label="Experimental", color="green")
-    plt.legend(loc=2)
+    plt.legend(loc=3)
     plt.savefig((namem + "RollRate"))
     plt.show()
 
