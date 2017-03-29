@@ -7,7 +7,7 @@ Created on Wed Mar 29 10:45:10 2017
 
 from Numerical_Analysis_assymettric import *
 
-namem= "AperiodicRollP [Ultimate Final Johan is een natte pannekoek]"
+namem = "AperiodicRollP [Ik Haat Jari omdat hij kk laat hier mee komt en johan omdat hij hier vanochtend niks over te whinen had]"
 
 def plot(name):
 

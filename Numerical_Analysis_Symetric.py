@@ -9,7 +9,7 @@ import control.matlab as cs
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
-namem = "Short_Period [Ultimate Final Johan is een natte pannekoek]"
+namem = "Short_Period [Ik Haat Jari omdat hij kk laat hier mee komt en johan omdat hij hier vanochtend niks over te whinen had]"
 
 def Symetric(name):
     print name
@@ -46,7 +46,7 @@ def Symetric(name):
     sys = cs.ss(A, B, C, D)
 
     #input of control system
-    delev = name.deltae_stab*0  #input of elevator deflection
+    delev = name.deltae_stab  #input of elevator deflection
     t = np.linspace(0,len(name.deltae)*0.1, num=len(name.deltae), endpoint=True, retstep=False) #time step and range  
     Xinit = np.matrix([[0], [0], [0], [0]]) # initial values for control system
     y, t, x = cs.lsim(sys, U=delev, T=t, X0=Xinit) # computing dybnamic stability
@@ -79,7 +79,7 @@ def Symetric(name):
 #    plotting the total grpahs
     plt.figure(0)
 #    plt.gca().set_ylim([-1,0])
-#    plt.gca().set_xlim([0,140])    
+    plt.gca().set_xlim([0,10])    
     plt.title('Airspeed ')
     plt.plot(t, y1, label="Numerical Optimized", color="blue")
     plt.ylabel("V [m/s]")
@@ -96,7 +96,7 @@ def Symetric(name):
 
     plt.figure(1)
 #    plt.gca().set_ylim([-1,0])
-#    plt.gca().set_xlim([0,140])    
+    plt.gca().set_xlim([0,10])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch angle')
@@ -110,7 +110,7 @@ def Symetric(name):
 
     plt.figure(2)
 #    plt.gca().set_ylim([-1,0])
-#    plt.gca().set_xlim([0,140])    
+    plt.gca().set_xlim([0,10])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch rate')
@@ -126,7 +126,7 @@ def Symetric(name):
 #    plt.tick_params(axis="x", labelsize=15)
 #    plt.tick_params(axis="y", labelsize=15)
 ##    plt.gca().set_ylim([-1,0])
-##    plt.gca().set_xlim([0,140])    
+#    plt.gca().set_xlim([0,10])    
 #    plt.title("Elevator deflection")
 #    plt.plot(t, (delev*180/np.pi), color='green')
 #    plt.ylabel("$\delta_e$ [deg]")

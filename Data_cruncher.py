@@ -74,29 +74,29 @@ Phugoid        =   Motion(phugoid_time,phugoid_mt)
 
 #short period
 short_time      =   3600.*1. + 60.*14. + 33.
-short_mt        =   14
+short_mt        =   10.2
 Short_Period          =   Motion(short_time, short_mt)
 #       assymetric motion
 
 #dutch roll
-DutchRoll_time  =   3600.*1. + 60.*10. + 50.
-DutchRoll_mt    =   30
+DutchRoll_time  =   3600.*1. + 60.*11.
+DutchRoll_mt    =   20
 DutchRoll      =   Motion(DutchRoll_time, DutchRoll_mt)      
 
 #dutch roll YD
-DutchRollY_time =   3600.*1. + 60.*12. + 5.    
+DutchRollY_time =   3600.*1. + 60.*12. + 7.    
 DutchRollY_mt   =   12
 DutchRollY    =   Motion(DutchRollY_time, DutchRollY_mt)
 
 #aper roll
 APR_time        =   3600.*1. + 60.*19. + 10.
-APR_mt          =   25
+APR_mt          =   20
 AperiodicRollP  =   Motion(APR_time, APR_mt)
 
 
 #Spiral
-SPRL_time       =   3600.*1. + 60.*22
-SPRL_mt         =   50
+SPRL_time       =   3600.*1. + 60.*21 + 50
+SPRL_mt         =   110
 Spiral         =   Motion(SPRL_time,SPRL_mt)
 
 
