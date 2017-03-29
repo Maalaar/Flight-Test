@@ -9,7 +9,7 @@ import control.matlab as cs
 import matplotlib.pyplot as plt
 from Data_cruncher import *
 
-namem = "Phugoid [Ultimate Final Johan is een natte pannekoek]"
+namem = "Short_Period [Ultimate Final Johan is een natte pannekoek]"
 
 def Symetric(name):
     print name
@@ -79,12 +79,12 @@ def Symetric(name):
 #    plotting the total grpahs
     plt.figure(0)
 #    plt.gca().set_ylim([-1,0])
-    plt.gca().set_xlim([0,140])    
+#    plt.gca().set_xlim([0,140])    
     plt.title('Airspeed ')
-    plt.plot(t, y1, label="Numerical", color="red")
+    plt.plot(t, y1, label="Numerical  Optimized", color="blue")
     plt.ylabel("V [m/s]")
     plt.xlabel("t [s]")
-    plt.plot(t, name.EAS, label="Experimental", color='green')
+#    plt.plot(t, name.EAS, label="Experimental", color='green')
     plt.legend()
     plt.savefig((namem + " Airspeed"))
     plt.show()
@@ -96,43 +96,43 @@ def Symetric(name):
 
     plt.figure(1)
 #    plt.gca().set_ylim([-1,0])
-    plt.gca().set_xlim([0,140])    
+#    plt.gca().set_xlim([0,140])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch angle')
-    plt.plot(t, y3, label="Numerical", color="red")
+    plt.plot(t, y3, label="Numerical  Optimized", color="blue")
     plt.ylabel(r'$\theta$ [deg]')
     plt.xlabel("t [s]")
-    plt.plot(t, name.PitchAngle, label="Experimental", color='green')
+#    plt.plot(t, name.PitchAngle, label="Experimental", color='green')
     plt.legend()
     plt.savefig((namem + " Pitch Angle"))
     plt.show()
 
     plt.figure(2)
 #    plt.gca().set_ylim([-1,0])
-    plt.gca().set_xlim([0,140])    
+#    plt.gca().set_xlim([0,140])    
     plt.tick_params(axis="x", labelsize=15)
     plt.tick_params(axis="y", labelsize=15)
     plt.title('Pitch rate')
-    plt.plot(t, y4, label="Numerical", color="red")
+    plt.plot(t, y4, label="Numerical  Optimized", color="blue")
     plt.ylabel(r'$q$ [deg/s]')
     plt.xlabel("t [s]")
-    plt.plot(t, name.PitchRate, label="Experimental", color='green')
+#    plt.plot(t, name.PitchRate, label="Experimental", color='green')
     plt.legend()
     plt.savefig((namem + " PitchRate"))
     plt.show()
     
-    plt.figure(3)
-    plt.tick_params(axis="x", labelsize=15)
-    plt.tick_params(axis="y", labelsize=15)
-#    plt.gca().set_ylim([-1,0])
-    plt.gca().set_xlim([0,140])    
-    plt.title("Elevator deflection")
-    plt.plot(t, (delev*180/np.pi), color='green')
-    plt.ylabel("$\delta_e$ [deg]")
-    plt.xlabel("t [s]")
-    plt.savefig((namem + " elevatordeflection"))
-    plt.legend
+#    plt.figure(3)
+#    plt.tick_params(axis="x", labelsize=15)
+#    plt.tick_params(axis="y", labelsize=15)
+##    plt.gca().set_ylim([-1,0])
+##    plt.gca().set_xlim([0,140])    
+#    plt.title("Elevator deflection")
+#    plt.plot(t, (delev*180/np.pi), color='green')
+#    plt.ylabel("$\delta_e$ [deg]")
+#    plt.xlabel("t [s]")
+#    plt.savefig((namem + " elevatordeflection"))
+#    plt.legend
     
 
     
